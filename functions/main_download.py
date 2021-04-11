@@ -15,17 +15,3 @@ def download_images(data):
     if folder_id:
         #extract features
         pass
-
-
-
-
-# # download(data,years)
-
-# total_size=320
-
-
-
-# new_folder_id=create_folder_and_move(data['User'])
-
-# get_files(driveFolderID,driveId=driveId)
-# # [{'id': '16kGWNe3fOKum_8IVNmaCZkGOJKto5e2L', 'name': 'Username'}]
