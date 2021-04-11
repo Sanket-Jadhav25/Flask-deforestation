@@ -1,10 +1,27 @@
 import sqlite3 as sql
-def db(db_path):
-    con = sql.connect(db_path)
-    con.row_factory = sql.Row
-    cur = con.cursor()
-    rows = cur.execute('select * from prediction').fetchall()[-1]
-    down1 = rows[0]
-    email1 = rows[1]
-    area1 = rows[2]
-    region1 = rows[3]
+
+class DataBase():
+    def __init__(self,db_path):
+        self.db_path=db_path
+    
+    def connect(self,):
+        self.conn = sql.connect(self.db_path)
+        self.conn.row_factory = sql.Row
+        self.cur = self.conn.cursor()
+
+        
+    def create_table(self,):
+        self.connect()
+        self.conn.execute('CREATE TABLE IF NOT EXISTS prediction (coords TEXT, email TEXT, area TEXT, region TEXT,username TEXT)')
+        self.conn.close()
+    
+    def insert(self,data):
+        self.create_table()
+        self.connect()
+        self.cur.execute("INSERT INTO prediction (coords,email,area,region,username)VALUES(?, ?, ?, ?, ?)",(str(data['Co-ordinate']),data['Email'],data['Area'],data['Region'],data['User']))
+        self.conn.commit()
+        self.conn.close()
+    
+    def get_last(self,):
+        self.connect()
+        return self.cur.execute('select * from prediction').fetchall()[-1]

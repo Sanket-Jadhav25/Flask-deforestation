@@ -7,10 +7,11 @@
 </head>
 
 <body>
-    {{ down1 }}<br>
-    {{ email1 }}<br>
-    {{ area1 }}<br>
-    {{ region1 }}<br>
+    {% for key, value in data.items() %}
+    <h1>Key: {{key}}</h1>
+    <h2>Value: {{value}}</h2>
+    {% endfor %}
+
 </body>
 
 </html>

@@ -1,5 +1,3 @@
-# from .authenticate import authenticate_drive,authenticate_ee
-
 
 from functions.helpers.download import Download_Images
 import os
