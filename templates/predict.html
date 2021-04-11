@@ -1,31 +1,31 @@
-
 <html lang="en">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
   <title>Starter Template - Materialize</title>
 
   <!-- CSS  -->
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="./static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="./static/css2/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="./static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="./static/css2/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 
 <body>
 
-{#  <nav class="light-blue lighten-1" role="navigation">#}
-{#    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>#}
-{#      <ul class="right hide-on-med-and-down">#}
-{#        <li><a href="#">Navbar Link</a></li>#}
-{#      </ul>#}
-{##}
-{#      <ul id="nav-mobile" class="sidenav">#}
-{#        <li><a href="#">Navbar Link</a></li>#}
-{#      </ul>#}
-{#      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>#}
-{#    </div>#}
-{#  </nav>#}
+  {# <nav class="light-blue lighten-1" role="navigation">#}
+    {# <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>#}
+      {# <ul class="right hide-on-med-and-down">#}
+        {# <li><a href="#">Navbar Link</a></li>#}
+        {# </ul>#}
+      {##}
+      {# <ul id="nav-mobile" class="sidenav">#}
+        {# <li><a href="#">Navbar Link</a></li>#}
+        {# </ul>#}
+      {# <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>#}
+      {# </div>#}
+    {# </nav>#}
 
 
   <div class="section no-pad-bot" id="index-banner">
@@ -34,58 +34,68 @@
       <h1 class="header center orange-text">Deforestation Prediction</h1>
       <div class="row center">
         <h5 class="header col s12 light">Predict the deforestation probability in the given area
-        <br>
+          <br>
         </h5>
       </div>
 
-              <div class="row">
-    <form action='/download' method="POST" id="form1" class="col s12">
       <div class="row">
-        <div class="input-field col s4">
-            <label for="Coordinates"><b>Co-ordinates</b></label>
-            <br>
-          <input   id="Coordinates" name="Coordinates" type="text" class="validate">
-        </div>
-           <div class = "row">
-           <div class="input-field col s4">
-            <label for="Country"><b>Country</b></label>
-            <br>
-          <input   id="country" name="country" type="text" class="validate">
-           </div>
+        <form action='/download' method="POST" id="form1" class="col s12">
+          <div class="row">
+            <div class="input-field col s4">
+              <label for="Coordinates"><b>Co-ordinates</b></label>
+              <br>
+              <input id="Coordinates" name="Coordinates" type="text" class="validate">
+            </div>
+            <div class="row">
+              <div class="input-field col s4">
+                <label for="Area"><b>Area</b></label>
+                <br>
+                <input id="area" name="area" type="text" class="validate">
+              </div>
 
-        </div>
-           <div class="input-field col s4">
-            <label for="Region"><b>Region</b></label>
-            <br>
-          <input   id="region" name="region" type="text" class="validate">
-               <br>
-        </div>
- <div class = "row">
-        <div class="input-field col s4">
+            </div>
+            <div class="input-field col s4">
+              <label for="Region"><b>Region</b></label>
+              <br>
+              <input id="region" name="region" type="text" class="validate">
+              <br>
+            </div>
+            <div class="row">
+              <div class="input-field col s4">
 
-          <label for="email"><b>Email</b></label>
-            <br>
-          <input id="email"  name="email" type="text" class="validate">
-</div>
+                <label for="email"><b>Email</b></label>
+                <br>
+                <input id="email" name="email" type="text" class="validate">
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s4">
+
+                <label for="username"><b>UserName</b></label>
+                <br>
+                <input id="username" name="username" type="text" class="validate">
+              </div>
+            </div>
+
+        </form>
+
+
+        <div class="row centre">
+
+          <button type="submit" form="form1" method="POST"
+            class="btn-large waves-effect waves-light orange">Predict</button>
+        </div>
+
       </div>
 
-</form>
-
-
-      <div class="row centre">
-
-          <button type="submit" form="form1" method = "POST" class="btn-large waves-effect waves-light orange">Predict</button>
-      </div>
-
-      </div>
-
-      <br><h4 align="center"<b>{{pred}}</b></h4>
-        <br>
+      <br>
+      <h4 align="center" <b>{{pred}}</b></h4>
+      <br>
 
     </div>
   </div>
 
- <!-- <div class="container">
+  <!-- <div class="container">
     <div class="section">
 
        Icon Section
@@ -177,9 +187,3 @@
 
   </body>
 </html> -->
-
-
-
-
-
-

@@ -6,7 +6,7 @@ def db():
     rows = cur.execute('select * from prediction').fetchall()[-1]
     down1 = rows[0]
     email1 = rows[1]
-    country1 = rows[2]
+    area1 = rows[2]
     region1 = rows[3]
 
 
@@ -483,19 +483,19 @@ def find_missing_grid(year_data):
     return a
 
 
-def download_missing_data(year, grid, location):
-    landsat = f"{location['Region']}_{location['Area']}_{year}_G{error_grid}.tif"
-    idhao = f"{location['Region']}_{location['Area']}_{year}_G{error_grid}__Idaho.tif"
+def download_missing_data(year, grid, data):
+    landsat = f"{data['Region']}_{data['Area']}_{year}_G{error_grid}.tif"
+    idhao = f"{data['Region']}_{data['Area']}_{year}_G{error_grid}__Idaho.tif"
     if not find_file(landsat):
-        download_specific(location, year, grid, landsat=True)
+        download_specific(data, year, grid, landsat=True)
     elif not find_file(idhao):
-        download_specific(location, year, grid, landsat=False)
+        download_specific(data, year, grid, landsat=False)
 
 
-def download_specific(location, year, grid, landsat=True):
+def download_specific(data, year, grid, landsat=True):
     destination_folder = "LandsatImages"
-    # get location coordinates
-    area = location['Co-ordinate']
+    # get data coordinates
+    area = data['Co-ordinate']
     # genrate 4*4 grid of the coordinates
     elements = grid(area)
     # create earth engine geometry if the area
@@ -516,8 +516,8 @@ def download_specific(location, year, grid, landsat=True):
                 landsatBands = ["B3", "B4", "B5", "B6", "B7", "B10"]
             ee_image_landsat = getGEEDataset(name=landsatDS, startDate=startDate, endDate=endDate, area=area,
                                              bands=landsatBands)
-            print(f"{location['Region']}_{location['Area']}_{year}_G{grid}")
-            name = f"{location['Region']}_{location['Area']}_{year}_G{grid}"
+            print(f"{data['Region']}_{data['Area']}_{year}_G{grid}")
+            name = f"{data['Region']}_{data['Area']}_{year}_G{grid}"
             drive_transfer(img=ee_image_landsat, name=name, cord=elements[grid], band_list=landsatBands,
                            destination_folder=destination_folder)
         else:
@@ -525,8 +525,8 @@ def download_specific(location, year, grid, landsat=True):
             IdahoBands = ["tmmx", "pdsi", "vpd", "ro", "def"]
             ee_image_Idaho = getGEEDataset(name=IdahoDS, startDate=startDate, endDate=endDate, area=area,
                                            bands=IdahoBands)
-            print(f"{location['Region']}_{location['Area']}_{year}_G{grid}_Idaho")
-            name = f"{location['Region']}_{location['Area']}_{year}_G{grid}__Idaho"
+            print(f"{data['Region']}_{data['Area']}_{year}_G{grid}_Idaho")
+            name = f"{data['Region']}_{data['Area']}_{year}_G{grid}__Idaho"
             drive_transfer(img=ee_image_Idaho, name=name, cord=elements[grid], band_list=IdahoBands,
                            destination_folder=destination_folder)
 
@@ -630,7 +630,7 @@ def find_file(name):
 
 """##change this"""
 
-location = {'Area': db.country1,
+location = {'Area': db.area1,
             'Co-ordinate': db.down1,
             'Region': db.region1,
             'User': db.email}
@@ -638,10 +638,10 @@ years = [(x + 2007) for x in range(0, 10)]
 years
 
 
-def download(location, years):
+def download(data, years):
     destination_folder = "LandsatImages"
-    # get location coordinates
-    area = location['Co-ordinate']
+    # get data coordinates
+    area = data['Co-ordinate']
     # genrate 4*4 grid of the coordinates
     elements = grid(area)
     # create earth engine geometry if the area
@@ -669,12 +669,12 @@ def download(location, years):
         inner_loop = tqdm(range(0, len(elements)))
         inner_loop.reset()
         for i in inner_loop:
-            print(f"{location['Region']}_{location['Area']}_{year}_G{i}_Idaho")
-            name = f"{location['Region']}_{location['Area']}_{year}_G{i}__Idaho"
+            print(f"{data['Region']}_{data['Area']}_{year}_G{i}_Idaho")
+            name = f"{data['Region']}_{data['Area']}_{year}_G{i}__Idaho"
             drive_transfer(img=ee_image_Idaho, name=name, cord=elements[i], band_list=IdahoBands,
                            destination_folder=destination_folder)
-            print(f"{location['Region']}_{location['Area']}_{year}_G{i}")
-            name = f"{location['Region']}_{location['Area']}_{year}_G{i}"
+            print(f"{data['Region']}_{data['Area']}_{year}_G{i}")
+            name = f"{data['Region']}_{data['Area']}_{year}_G{i}"
             drive_transfer(img=ee_image_landsat, name=name, cord=elements[i], band_list=landsatBands,
                            destination_folder=destination_folder)
         print(f'Year {year} Done!')
@@ -686,7 +686,7 @@ temp_drive_folderID = '1ThixeSkEWstWCyT_zglH9hBp-5X2ySjE'
 driveId = '0AK91Kjn50C2rUk9PVA'
 driveFolderID = '1ops9kaA-UP5YmiW2Da3HFde9wNWJdCEo'
 
-# download(location,years)
+# download(data,years)
 
 total_size = 320
 
@@ -698,10 +698,10 @@ while len(files) != total_size:
         year_data = [f for f in files if str(year) in r['name']]
         missing_grids = find_missing_grid(year_data)
         for grid in missing_grids:
-            download_missing_data(year, grid, location)
+            download_missing_data(year, grid, data)
     files = get_files(temp_drive_folderID)
 
-new_folder_id = create_folder_and_move(location['User'])
+new_folder_id = create_folder_and_move(data['User'])
 
 get_files(driveFolderID, driveId=driveId)
 # [{'id': '16kGWNe3fOKum_8IVNmaCZkGOJKto5e2L', 'name': 'Username'}]
