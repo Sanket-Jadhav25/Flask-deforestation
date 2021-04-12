@@ -2,15 +2,28 @@
 from functions.helpers.authenticate import authenticate_drive
 import os
 from dotenv.main import load_dotenv
-
+import io
+from googleapiclient.http import MediaIoBaseDownload
 
 class DriveFunctions():
   def __init__(self,path_to_env):
     load_dotenv(dotenv_path=path_to_env)
     file_path=os.getenv('service_account_file_path')
     self.service=authenticate_drive(file_path=file_path)
-    
-
+    self.driveId=os.getenv('driveId')
+  def get_image_id(self,name,folder_id):
+    files=self.get_files(folder_id,driveId=self.driveId)
+    return [x for x in files if x['name']==f'{name}'][0]['id']
+  def get_image(self,name):
+    fileId=self.get_image_id(name)
+    request = self.service.files().get_media(fileId=fileId)
+    fh = io.FileIO(name, "wb")
+    downloader = MediaIoBaseDownload(fh, request)
+    done = False
+    while done is False:
+        _, done = downloader.next_chunk()
+    return True
+  
   def get_files(self,folderId,driveId=None):
     if driveId:
       corpora='drive'
