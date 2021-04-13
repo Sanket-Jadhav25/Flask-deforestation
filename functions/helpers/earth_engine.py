@@ -1,13 +1,12 @@
 import os
-
+import sys
 from dotenv.main import load_dotenv
 from functions.helpers.authenticate import authenticate_ee
 import time
 class EarthEngineFunctions():
-  def __init__(self,path_to_env):
-    load_dotenv(dotenv_path=path_to_env)
+  def __init__(self,):
     service_account = os.getenv('service_account')
-    file_path=os.getenv('service_account_file_path')
+    file_path=os.path.abspath(os.path.join(os.getcwd(),os.getenv('service_account_file_path')))
     self.ee=authenticate_ee(file_path=file_path,service_account=service_account)
 
   def getGEEDataset(self,name,startDate,endDate,area,bands):

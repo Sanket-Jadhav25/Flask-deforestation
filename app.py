@@ -1,10 +1,15 @@
+
+import os
+from functions.main import download_images
 from functions.helpers.database import DataBase
 from flask import Flask,render_template,request
 import threading
-
+import logging
 import ast
 # from functions.main_download import *
+import sys
 
+logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 
 @app.route('/')
@@ -34,10 +39,9 @@ def download():
                'Region': 'Andorra',
             'User':'Username',
                'Email':'temp'}
-        db.insert(data)
-        # thread = threading.Thread(target=download_images, kwargs=data)
-        # thread.start()
-        # return render_template('download1.html', down1=down1, email1=email1, area1=area1, region1=region1)
+        # db.insert(data)
+        thread = threading.Thread(target=download_images, kwargs={'data':data},)
+        thread.start()
 
         return render_template('download.html',data=data)
 
@@ -46,7 +50,8 @@ def download():
 
 
 if __name__ == '__main__':
-    app.config['DEBUG'] = True
-    app.run(port=8000)
-
-
+    app.run(
+        host="0.0.0.0",
+        port=8000,
+        debug=True,
+    )

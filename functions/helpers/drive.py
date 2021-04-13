@@ -6,8 +6,7 @@ import io
 from googleapiclient.http import MediaIoBaseDownload
 
 class DriveFunctions():
-  def __init__(self,path_to_env):
-    load_dotenv(dotenv_path=path_to_env)
+  def __init__(self,):
     file_path=os.getenv('service_account_file_path')
     self.service=authenticate_drive(file_path=file_path)
     self.driveId=os.getenv('driveId')
