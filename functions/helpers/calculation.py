@@ -7,6 +7,7 @@ import os
 from functions.helpers.cordinates import GridCal
 from tqdm import tqdm
 import sys
+pd.options.mode.chained_assignment = None  # default='warn'
 class CalculationFunctions():
     def __init__(self,):
         self.df=DriveFunctions()
@@ -429,7 +430,7 @@ class CalculationFunctions():
         for df,path in zip(df_dict.values(),all_paths[1:]):
             self.add_to_df(df,path)
             
-    def merge(all_paths):
+    def merge(self, all_paths):
         forest=pd.read_csv(all_paths[1])
         final_forest = forest[["REGION","AREA"]]
         ll = 2
