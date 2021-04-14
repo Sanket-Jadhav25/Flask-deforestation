@@ -11,26 +11,35 @@ def download_images(data):
     load_dotenv()
     
     temp_drive_folderID=os.getenv('temp_drive_folderID')
-    driveId=os.getenv('driveId')
+    # driveId=os.getenv('driveId')
     driveFolderID=os.getenv('driveFolderID')
 
-    dwn=Download_Images()
+    # dwn=Download_Images()
 
-    dwn.temp(data)
+    # dwn.download(data)
     # folder_id=dwn.check_and_download(temp_drive_folderID,data,driveFolderID)
-    # if folder_id:
+    
+    folder_id='16kGWNe3fOKum_8IVNmaCZkGOJKto5e2L'
+    if folder_id:
     #     #extract features
-    #     cf=CalculationFunctions('secrets\.env')
-    #     all_paths=cf.create_csv()
-    #     cf.genrate_ds(data,all_paths,folder_id)
-    #     df=cf.merge(all_paths)
-    #     print(df)
-    #     #predict
-    #     # pred=Predict('path to model')
-    #     # predictions=pred.predict(df)
-    #     # rp=Report()
-    #     # #TODO
-    #     # rp.create_report(predictions)
+        cf=CalculationFunctions()
+        all_paths=cf.create_csv()
+        print('Created CSV')
+        sys.stdout.flush()
+        cf.genrate_ds(data,all_paths,folder_id)
+        print("Genrated Dataset")
+        sys.stdout.flush()
+        df=cf.merge(all_paths)
+        print("Merged Dataset")
+        sys.stdout.flush()
+        print(df)
+        sys.stdout.flush()
+        #predict
+        # pred=Predict('path to model')
+        # predictions=pred.predict(df)
+        # rp=Report()
+        # #TODO
+        # rp.create_report(predictions)
         
         
         

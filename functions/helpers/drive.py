@@ -13,8 +13,8 @@ class DriveFunctions():
   def get_image_id(self,name,folder_id):
     files=self.get_files(folder_id,driveId=self.driveId)
     return [x for x in files if x['name']==f'{name}'][0]['id']
-  def get_image(self,name):
-    fileId=self.get_image_id(name)
+  def get_image(self,name,folder_id):
+    fileId=self.get_image_id(name,folder_id)
     request = self.service.files().get_media(fileId=fileId)
     fh = io.FileIO(name, "wb")
     downloader = MediaIoBaseDownload(fh, request)

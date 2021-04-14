@@ -9,7 +9,7 @@ import ast
 # from functions.main_download import *
 import sys
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.ERROR)
 app = Flask(__name__)
 
 @app.route('/')
@@ -42,7 +42,6 @@ def download():
         # db.insert(data)
         thread = threading.Thread(target=download_images, kwargs={'data':data},)
         thread.start()
-
         return render_template('download.html',data=data)
 
 

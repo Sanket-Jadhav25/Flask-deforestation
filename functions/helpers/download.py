@@ -11,9 +11,6 @@ class Download_Images():
     self.gc=GridCal()
     self.fm=FillMissing(self.eef,self.df,self.gc)
     
-  def temp(self,data):
-    print(self.eef.ee.Geometry.Polygon(data['Co-ordinate'], None, False))
-    sys.stdout.flush() 
   def download(self,data):
     print('Downloading')
     sys.stdout.flush() 
@@ -28,8 +25,7 @@ class Download_Images():
     # create dict for new row in main df
     print('Years Done:')
     sys.stdout.flush() 
-    year_loop=tqdm(years)
-    for year in year_loop:
+    for year in tqdm(years):
       print(f'Year Selected {year}:')
       sys.stdout.flush() 
       sys.stdout.flush() 
@@ -48,15 +44,9 @@ class Download_Images():
 
       print('Grid Progress:')
       sys.stdout.flush() 
-      inner_loop=tqdm(range(0,len(elements)))
-      inner_loop.reset()
-      for i in inner_loop:
-        print(f"{data['Region']}_{data['Area']}_{year}_G{i}_Idaho")
-        sys.stdout.flush() 
+      for i in range(0,len(elements)):
         name=f"{data['Region']}_{data['Area']}_{year}_G{i}__Idaho"
         # self.eef.drive_transfer(img=ee_image_Idaho,name=name,cord=elements[i],band_list=IdahoBands,destination_folder=destination_folder)
-        print(f"{data['Region']}_{data['Area']}_{year}_G{i}")
-        sys.stdout.flush() 
         name=f"{data['Region']}_{data['Area']}_{year}_G{i}"
         # self.eef.drive_transfer(img=ee_image_landsat,name=name,cord=elements[i],band_list=landsatBands,destination_folder=destination_folder)
       print(f'Year {year} Done!')

@@ -6,9 +6,10 @@ from area import area as Area
 import os
 from functions.helpers.cordinates import GridCal
 from tqdm import tqdm
+import sys
 class CalculationFunctions():
-    def __init__(self,path_to_env):
-        self.df=DriveFunctions(path_to_env)
+    def __init__(self,):
+        self.df=DriveFunctions()
         self.gc=GridCal()
     def calculate_LST(self,thermal,ndvi,island8):
         if island8:
@@ -105,24 +106,24 @@ class CalculationFunctions():
 
         result.append(ndvi)
         return result
-    def calculate_area(arr,area_per_pixel):
+    def calculate_area(self,arr,area_per_pixel):
         count=np.count_nonzero(arr)
         if count==0:return 0
         else:return (count*area_per_pixel)
-    def merge_two_dicts(x, y):
+    def merge_two_dicts(self,x, y):
         """Given two dictionaries, merge them into a new dict as a shallow copy."""
         z = x.copy()
         z.update(y)
         return z
     # fun to add to ds
-    def add_to_df(newdata,path):
+    def add_to_df(self,newdata,path):
         df=pd.read_csv(path, index_col=False)
         if newdata['AREA'][0] not in list(df['AREA']):
             df=df.append(pd.DataFrame(newdata),ignore_index=True)
             df.to_csv(path, index=False)
     def create_empty_dict_rows(self,new_row_common):
         new_forest_row  = self.merge_two_dicts(new_row_common,{})
-        new_crop_row    = self.erge_two_dicts(new_row_common,{})
+        new_crop_row    = self.merge_two_dicts(new_row_common,{})
         new_builtup_row = self.merge_two_dicts(new_row_common,{})
         new_burn_row    = self.merge_two_dicts(new_row_common,{})
         new_lst_row     = self.merge_two_dicts(new_row_common,{})
@@ -138,7 +139,10 @@ class CalculationFunctions():
         new_pdsi_row,\
         new_vpd_row,new_water_defict_row
         
+
     def readImages(self,region,area,year,grid,isl8,folder_id):
+        print(f"Reading Image {region}_{area}_{year}_G{grid}")
+        sys.stdout.flush()
         idaho_name=f"{region}_{area}_{year}_G{grid}__Idaho.tif"
         landsat_name=f"{region}_{area}_{year}_G{grid}.tif"
 
@@ -291,18 +295,18 @@ class CalculationFunctions():
                 for x in temp:
                     waterdeficit_data[x]=[]
                 waterdeficit_df=pd.DataFrame(waterdeficit_data)
-        main_df_path='/content/main_data.csv'
-        forest_df_path='/content/forest_data.csv'
-        crop_df_path='/content/crop_data.csv'
-        burn_df_path='/content/burn_data.csv'
-        builtup_df_path='/content/builtup_data.csv'
-        lst_df_path='/content/lst_data.csv'
-        airtemp_df_path='/content/airtemp_data.csv'
-        ndvi_df_path='/content/ndvi_data.csv'
-        pdsi_df_path='/content/pdsi_data.csv'
-        vpd_df_path='/content/vpd_data.csv'
-        runoff_df_path='/content/runoff_data.csv'
-        waterdeficit_df_path='/content/waterdeficit_data.csv'
+        main_df_path='/main_data.csv'
+        forest_df_path='/forest_data.csv'
+        crop_df_path='/crop_data.csv'
+        burn_df_path='/burn_data.csv'
+        builtup_df_path='/builtup_data.csv'
+        lst_df_path='/lst_data.csv'
+        airtemp_df_path='/airtemp_data.csv'
+        ndvi_df_path='/ndvi_data.csv'
+        pdsi_df_path='/pdsi_data.csv'
+        vpd_df_path='/vpd_data.csv'
+        runoff_df_path='/runoff_data.csv'
+        waterdeficit_df_path='/waterdeficit_data.csv'
         main_df.to_csv(main_df_path, index=False)
         forest_df.to_csv(forest_df_path, index=False)
         crop_df.to_csv(crop_df_path, index=False)
@@ -366,12 +370,14 @@ class CalculationFunctions():
             
             
             print(f"{data['Region']}_{data['Area']}_{year}")
+            sys.stdout.flush()
             for i in range(0,len(elements)):
             
                 # calculate the total grid area
                 grid_area=Area({'type':'Polygon','coordinates':[elements[i]]})/1000000
                 new_main_df_row[f'G{i}_AREA']=[]
                 new_main_df_row[f'G{i}_AREA'].append(grid_area)
+                
                 green,red,nir,swir,thermal,\
                 tmmx,pdsi,vpd,ro,def_=self.readImages(region=data['Region'],area=data['Area'],year=year,grid=i,isl8=isl8,folder_id=folder_id)
                 # if area per pixel is not calculated then calculate it
@@ -422,6 +428,7 @@ class CalculationFunctions():
                 flag2=True
         for df,path in zip(df_dict.values(),all_paths[1:]):
             self.add_to_df(df,path)
+            
     def merge(all_paths):
         forest=pd.read_csv(all_paths[1])
         final_forest = forest[["REGION","AREA"]]
@@ -439,7 +446,7 @@ class CalculationFunctions():
         final_forest['forest_2015']= forest.iloc[:, ll+(16*8):hl+(16*8)].sum(axis=1)#forest_2015
         final_forest['forest_2016']= forest.iloc[:, ll+(16*9):hl+(16*9)].sum(axis=1)#forest_2016
         final_forest=final_forest.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
-        final_forest.to_csv('/content/final_forest.csv',index=False)
+        final_forest.to_csv('/final_forest.csv',index=False)
 
         # Crops
         crops=pd.read_csv(all_paths[2])
@@ -458,7 +465,7 @@ class CalculationFunctions():
         final_crops['crops_2015']= crops.iloc[:, ll+(16*8):hl+(16*8)].sum(axis=1)#crops_2015
         final_crops['crops_2016']= crops.iloc[:, ll+(16*9):hl+(16*9)].sum(axis=1)#crops_2016
         final_crops=final_crops.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
-        final_crops.to_csv('/content/final_crops.csv',index=False)
+        final_crops.to_csv('/final_crops.csv',index=False)
 
         # builtup
         builtup = pd.read_csv(all_paths[3])
@@ -478,7 +485,7 @@ class CalculationFunctions():
         final_builtup['builtup_2015']= builtup.iloc[:, ll+(16*8):hl+(16*8)].sum(axis=1)#builtup_2015
         final_builtup['builtup_2016']= builtup.iloc[:, ll+(16*9):hl+(16*9)].sum(axis=1)#builtup_2016
         final_builtup=final_builtup.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
-        final_builtup.to_csv('/content/final_builtup.csv',index=False)
+        final_builtup.to_csv('/final_builtup.csv',index=False)
 
         # Air temp
         airtemp = pd.read_csv(all_paths[4])
@@ -495,7 +502,7 @@ class CalculationFunctions():
         final_airtemp['airtemp_2015']= airtemp.iloc[:, 515:579:4].median(axis=1)#airtemp_2015
         final_airtemp['airtemp_2016']= airtemp.iloc[:, 579:642:4].median(axis=1)#airtemp_2016
         final_airtemp=final_airtemp.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
-        final_airtemp.to_csv('/content/final_airtemp.csv',index=False)
+        final_airtemp.to_csv('/final_airtemp.csv',index=False)
 
         # Burn
         burn =  pd.read_csv(all_paths[6])
@@ -513,13 +520,13 @@ class CalculationFunctions():
         final_burn['burn_2016']= burn.iloc[:, 579:642:4].median(axis=1)#burn_2016
 
         final_burn=final_burn.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
-        final_burn.to_csv('/content/final_burn.csv',index=False)
+        final_burn.to_csv('/final_burn.csv',index=False)
 
         # mainarea
         mainarea = pd.read_csv(all_paths[0])
         final_mainarea = mainarea[["REGION","AREA","TOTAL_AREA"]]
         final_mainarea=final_mainarea.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
-        final_mainarea.to_csv('/content/final_mainarea.csv',index=False)
+        final_mainarea.to_csv('/final_mainarea.csv',index=False)
 
         # pdsi
         pdsi = pd.read_csv(all_paths[9])
@@ -536,7 +543,7 @@ class CalculationFunctions():
         final_pdsi['pdsi_2015']= pdsi.iloc[:, 515:579:4].median(axis=1)#pdsi_2015
         final_pdsi['pdsi_2016']= pdsi.iloc[:, 579:642:4].median(axis=1)#pdsi_2016
         final_pdsi=final_pdsi.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
-        final_pdsi.to_csv('/content/final_pdsi.csv',index=False)
+        final_pdsi.to_csv('/final_pdsi.csv',index=False)
 
         # run_off
         runoff = pd.read_csv(all_paths[8])
@@ -555,7 +562,7 @@ class CalculationFunctions():
         final_runoff['runoff_2016']= runoff.iloc[:, 579:642:4].median(axis=1)#runoff_2016
 
         final_runoff=final_runoff.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
-        final_runoff.to_csv('/content/final_runoff.csv',index=False)
+        final_runoff.to_csv('/final_runoff.csv',index=False)
 
         # vpd
         vpd = pd.read_csv(all_paths[10])
@@ -571,7 +578,7 @@ class CalculationFunctions():
         final_vpd['vpd_2015']= vpd.iloc[:, 515:579:4].median(axis=1)#vpd_2015
         final_vpd['vpd_2016']= vpd.iloc[:, 579:642:4].median(axis=1)#vpd_2016
         final_vpd=final_vpd.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
-        final_vpd.to_csv('/content/final_vpd.csv',index=False)
+        final_vpd.to_csv('/final_vpd.csv',index=False)
 
         # final_waterdeficit
         waterdeficit = pd.read_csv(all_paths[11])
@@ -589,18 +596,18 @@ class CalculationFunctions():
         final_waterdeficit['waterdeficit_2016']= waterdeficit.iloc[:, 579:642:4].median(axis=1)#waterdeficit_2016
 
         final_waterdeficit=final_waterdeficit.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
-        final_waterdeficit.to_csv('/content/final_waterdeficit.csv',index=False)
+        final_waterdeficit.to_csv('/final_waterdeficit.csv',index=False)
 
         all_main_paths = [
-                            "/content/final_mainarea.csv",
-                            "/content/final_forest.csv",
-                            "/content/final_crops.csv",
-                            "/content/final_burn.csv",
-                            "/content/final_airtemp.csv",
-                            "/content/final_pdsi.csv",
-                            "/content/final_runoff.csv",
-                            "/content/final_vpd.csv",
-                            "/content/final_waterdeficit.csv",
+                            "/final_mainarea.csv",
+                            "/final_forest.csv",
+                            "/final_crops.csv",
+                            "/final_burn.csv",
+                            "/final_airtemp.csv",
+                            "/final_pdsi.csv",
+                            "/final_runoff.csv",
+                            "/final_vpd.csv",
+                            "/final_waterdeficit.csv",
         ]
         df = mainarea[["REGION","AREA"]]
         for path in all_main_paths:
