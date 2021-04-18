@@ -13,20 +13,21 @@ def download_images(data):
     temp_drive_folderID=os.getenv('temp_drive_folderID')
     # driveId=os.getenv('driveId')
     driveFolderID=os.getenv('driveFolderID')
-
+    years=[(((int(data['Year']))-3)-x) for x in range(0,10)][::-1]
     # dwn=Download_Images()
 
-    # dwn.download(data)
+    # dwn.download(data,years)
     # folder_id=dwn.check_and_download(temp_drive_folderID,data,driveFolderID)
     
     folder_id='16kGWNe3fOKum_8IVNmaCZkGOJKto5e2L'
     if folder_id:
     #     #extract features
         cf=CalculationFunctions()
-        # all_paths=cf.create_csv()
+        
+        # all_paths=cf.create_csv(years)
         # print('Created CSV')
         # sys.stdout.flush()
-        # cf.genrate_ds(data,all_paths,folder_id)
+        # cf.genrate_ds(data,all_paths,folder_id,years)
         # print("Genrated Dataset")
         # sys.stdout.flush()
         all_paths=['/main_data.csv',

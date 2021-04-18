@@ -11,10 +11,9 @@ class Download_Images():
     self.gc=GridCal()
     self.fm=FillMissing(self.eef,self.df,self.gc)
     
-  def download(self,data):
+  def download(self,data,years):
     print('Downloading')
-    sys.stdout.flush() 
-    years=[(x+2007) for x in range(0,10)]
+    sys.stdout.flush()
     destination_folder="LandsatImages"
     # get data coordinates
     area=data['Co-ordinate']

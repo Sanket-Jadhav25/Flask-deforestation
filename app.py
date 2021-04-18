@@ -36,9 +36,10 @@ def download():
                         [1.572418212890625, 42.541619138577296],
                         [1.2289239793090503, 42.541619138577296],
                         [1.2289239793090503, 42.36919824433563]]],
-               'Region': 'Andorra',
+            'Region': 'Andorra',
             'User':'Username',
-               'Email':'temp'}
+            'Email':'temp',
+            'Year':2019}
         # db.insert(data)
         thread = threading.Thread(target=download_images, kwargs={'data':data},)
         thread.start()

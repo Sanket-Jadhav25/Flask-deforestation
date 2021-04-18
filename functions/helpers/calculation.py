@@ -178,7 +178,7 @@ class CalculationFunctions():
         os.remove(idaho_name)
         return np.array([green,red,nir,swir,thermal,\
                 tmmx,pdsi,vpd,ro,def_])
-    def create_csv(self):
+    def create_csv(self,years):
         # csv format for main csv
         main_data={
             'REGION':[], "AREA":[],
@@ -202,7 +202,6 @@ class CalculationFunctions():
             'G15_AREA':[],
         }
         main_df=pd.DataFrame(main_data)
-        years=[2007+x for x in range(0,10)]
         forest_data={
             'REGION':[], "AREA":[],
         }
@@ -324,8 +323,8 @@ class CalculationFunctions():
         return [main_df_path,forest_df_path,crop_df_path,builtup_df_path,airtemp_df_path,lst_df_path,
                 burn_df_path,ndvi_df_path,runoff_df_path,pdsi_df_path,vpd_df_path,waterdeficit_df_path]
         
-    def genrate_ds(self,data,all_paths,folder_id):
-        years=[(x+2007) for x in range(0,10)]
+    def genrate_ds(self,data,all_paths,folder_id,years):
+        # years=[(((int(data['Year']))-3)-x) for x in range(0,10)][::-1]
         # flag for compeletion of main csv data
         flag2=False
         #create path
@@ -436,16 +435,16 @@ class CalculationFunctions():
         ll = 2
         hl = 18
 
-        final_forest['forest_2007']= forest.iloc[:, ll:hl].sum(axis=1)#forest_2007
-        final_forest['forest_2008']= forest.iloc[:, ll+(16*1):hl+(16*1)].sum(axis=1)#forest_2008
-        final_forest['forest_2009']= forest.iloc[:, ll+(16*2):hl+(16*2)].sum(axis=1)#forest_2009
-        final_forest['forest_2010']= forest.iloc[:, ll+(16*3):hl+(16*3)].sum(axis=1)#forest_2010
-        final_forest['forest_2011']= forest.iloc[:, ll+(16*4):hl+(16*4)].sum(axis=1)#forest_2011
-        final_forest['forest_2012']= forest.iloc[:, ll+(16*5):hl+(16*5)].sum(axis=1)#forest_2012
-        final_forest['forest_2013']= forest.iloc[:, ll+(16*6):hl+(16*6)].sum(axis=1)#forest_2013
-        final_forest['forest_2014']= forest.iloc[:, ll+(16*7):hl+(16*7)].sum(axis=1)#forest_2014
-        final_forest['forest_2015']= forest.iloc[:, ll+(16*8):hl+(16*8)].sum(axis=1)#forest_2015
-        final_forest['forest_2016']= forest.iloc[:, ll+(16*9):hl+(16*9)].sum(axis=1)#forest_2016
+        final_forest['forest_year_1']= forest.iloc[:, ll:hl].sum(axis=1)#forest_year_1
+        final_forest['forest_year_2']= forest.iloc[:, ll+(16*1):hl+(16*1)].sum(axis=1)#forest_year_2
+        final_forest['forest_year_3']= forest.iloc[:, ll+(16*2):hl+(16*2)].sum(axis=1)#forest_year_3
+        final_forest['forest_year_4']= forest.iloc[:, ll+(16*3):hl+(16*3)].sum(axis=1)#forest_year_4
+        final_forest['forest_year_5']= forest.iloc[:, ll+(16*4):hl+(16*4)].sum(axis=1)#forest_year_5
+        final_forest['forest_year_6']= forest.iloc[:, ll+(16*5):hl+(16*5)].sum(axis=1)#forest_year_6
+        final_forest['forest_year_7']= forest.iloc[:, ll+(16*6):hl+(16*6)].sum(axis=1)#forest_year_7
+        final_forest['forest_year_8']= forest.iloc[:, ll+(16*7):hl+(16*7)].sum(axis=1)#forest_year_8
+        final_forest['forest_year_9']= forest.iloc[:, ll+(16*8):hl+(16*8)].sum(axis=1)#forest_year_9
+        final_forest['forest_year_10']= forest.iloc[:, ll+(16*9):hl+(16*9)].sum(axis=1)#forest_year_10
         final_forest=final_forest.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
         final_forest.to_csv('/final_forest.csv',index=False)
 
@@ -455,16 +454,16 @@ class CalculationFunctions():
         ll = 2
         hl = 18
 
-        final_crops['crops_2007']= crops.iloc[:, ll:hl].sum(axis=1)#crops_2007
-        final_crops['crops_2008']= crops.iloc[:, ll+(16*1):hl+(16*1)].sum(axis=1)#crops_2008
-        final_crops['crops_2009']= crops.iloc[:, ll+(16*2):hl+(16*2)].sum(axis=1)#crops_2009
-        final_crops['crops_2010']= crops.iloc[:, ll+(16*3):hl+(16*3)].sum(axis=1)#crops_2010
-        final_crops['crops_2011']= crops.iloc[:, ll+(16*4):hl+(16*4)].sum(axis=1)#crops_2011
-        final_crops['crops_2012']= crops.iloc[:, ll+(16*5):hl+(16*5)].sum(axis=1)#crops_2012
-        final_crops['crops_2013']= crops.iloc[:, ll+(16*6):hl+(16*6)].sum(axis=1)#crops_2013
-        final_crops['crops_2014']= crops.iloc[:, ll+(16*7):hl+(16*7)].sum(axis=1)#crops_2014
-        final_crops['crops_2015']= crops.iloc[:, ll+(16*8):hl+(16*8)].sum(axis=1)#crops_2015
-        final_crops['crops_2016']= crops.iloc[:, ll+(16*9):hl+(16*9)].sum(axis=1)#crops_2016
+        final_crops['crops_year_1']= crops.iloc[:, ll:hl].sum(axis=1)#crops_year_1
+        final_crops['crops_year_2']= crops.iloc[:, ll+(16*1):hl+(16*1)].sum(axis=1)#crops_year_2
+        final_crops['crops_year_3']= crops.iloc[:, ll+(16*2):hl+(16*2)].sum(axis=1)#crops_year_3
+        final_crops['crops_year_4']= crops.iloc[:, ll+(16*3):hl+(16*3)].sum(axis=1)#crops_year_4
+        final_crops['crops_year_5']= crops.iloc[:, ll+(16*4):hl+(16*4)].sum(axis=1)#crops_year_5
+        final_crops['crops_year_6']= crops.iloc[:, ll+(16*5):hl+(16*5)].sum(axis=1)#crops_year_6
+        final_crops['crops_year_7']= crops.iloc[:, ll+(16*6):hl+(16*6)].sum(axis=1)#crops_year_7
+        final_crops['crops_year_8']= crops.iloc[:, ll+(16*7):hl+(16*7)].sum(axis=1)#crops_year_8
+        final_crops['crops_year_9']= crops.iloc[:, ll+(16*8):hl+(16*8)].sum(axis=1)#crops_year_9
+        final_crops['crops_year_10']= crops.iloc[:, ll+(16*9):hl+(16*9)].sum(axis=1)#crops_year_10
         final_crops=final_crops.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
         final_crops.to_csv('/final_crops.csv',index=False)
 
@@ -475,16 +474,16 @@ class CalculationFunctions():
         ll = 2
         hl = 18
 
-        final_builtup['builtup_2007']= builtup.iloc[:, ll:hl].sum(axis=1)#builtup_2007
-        final_builtup['builtup_2008']= builtup.iloc[:, ll+(16*1):hl+(16*1)].sum(axis=1)#builtup_2008
-        final_builtup['builtup_2009']= builtup.iloc[:, ll+(16*2):hl+(16*2)].sum(axis=1)#builtup_2009
-        final_builtup['builtup_2010']= builtup.iloc[:, ll+(16*3):hl+(16*3)].sum(axis=1)#builtup_2010
-        final_builtup['builtup_2011']= builtup.iloc[:, ll+(16*4):hl+(16*4)].sum(axis=1)#builtup_2011
-        final_builtup['builtup_2012']= builtup.iloc[:, ll+(16*5):hl+(16*5)].sum(axis=1)#builtup_2012
-        final_builtup['builtup_2013']= builtup.iloc[:, ll+(16*6):hl+(16*6)].sum(axis=1)#builtup_2013
-        final_builtup['builtup_2014']= builtup.iloc[:, ll+(16*7):hl+(16*7)].sum(axis=1)#builtup_2014
-        final_builtup['builtup_2015']= builtup.iloc[:, ll+(16*8):hl+(16*8)].sum(axis=1)#builtup_2015
-        final_builtup['builtup_2016']= builtup.iloc[:, ll+(16*9):hl+(16*9)].sum(axis=1)#builtup_2016
+        final_builtup['builtup_year_1']= builtup.iloc[:, ll:hl].sum(axis=1)#builtup_year_1
+        final_builtup['builtup_year_2']= builtup.iloc[:, ll+(16*1):hl+(16*1)].sum(axis=1)#builtup_year_2
+        final_builtup['builtup_year_3']= builtup.iloc[:, ll+(16*2):hl+(16*2)].sum(axis=1)#builtup_year_3
+        final_builtup['builtup_year_4']= builtup.iloc[:, ll+(16*3):hl+(16*3)].sum(axis=1)#builtup_year_4
+        final_builtup['builtup_year_5']= builtup.iloc[:, ll+(16*4):hl+(16*4)].sum(axis=1)#builtup_year_5
+        final_builtup['builtup_year_6']= builtup.iloc[:, ll+(16*5):hl+(16*5)].sum(axis=1)#builtup_year_6
+        final_builtup['builtup_year_7']= builtup.iloc[:, ll+(16*6):hl+(16*6)].sum(axis=1)#builtup_year_7
+        final_builtup['builtup_year_8']= builtup.iloc[:, ll+(16*7):hl+(16*7)].sum(axis=1)#builtup_year_8
+        final_builtup['builtup_year_9']= builtup.iloc[:, ll+(16*8):hl+(16*8)].sum(axis=1)#builtup_year_9
+        final_builtup['builtup_year_10']= builtup.iloc[:, ll+(16*9):hl+(16*9)].sum(axis=1)#builtup_year_10
         final_builtup=final_builtup.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
         final_builtup.to_csv('/final_builtup.csv',index=False)
 
@@ -492,16 +491,16 @@ class CalculationFunctions():
         airtemp = pd.read_csv(all_paths[4])
         final_airtemp = airtemp[["REGION","AREA"]]
 
-        final_airtemp['airtemp_2007']= airtemp.iloc[:, 3:67:4].median(axis=1)#airtemp_2007
-        final_airtemp['airtemp_2008']= airtemp.iloc[:, 67:131:4].median(axis=1)#airtemp_2008
-        final_airtemp['airtemp_2009']= airtemp.iloc[:, 131:195:4].median(axis=1)#airtemp_2009
-        final_airtemp['airtemp_2010']= airtemp.iloc[:, 195:259:4].median(axis=1)#airtemp_2010
-        final_airtemp['airtemp_2011']= airtemp.iloc[:, 259:323:4].median(axis=1)#airtemp_2011
-        final_airtemp['airtemp_2012']= airtemp.iloc[:, 323:387:4].median(axis=1)#airtemp_2012
-        final_airtemp['airtemp_2013']= airtemp.iloc[:, 387:451:4].median(axis=1)#airtemp_2013
-        final_airtemp['airtemp_2014']= airtemp.iloc[:, 451:515:4].median(axis=1)#airtemp_2014
-        final_airtemp['airtemp_2015']= airtemp.iloc[:, 515:579:4].median(axis=1)#airtemp_2015
-        final_airtemp['airtemp_2016']= airtemp.iloc[:, 579:642:4].median(axis=1)#airtemp_2016
+        final_airtemp['airtemp_year_1']= airtemp.iloc[:, 3:67:4].median(axis=1)#airtemp_year_1
+        final_airtemp['airtemp_year_2']= airtemp.iloc[:, 67:131:4].median(axis=1)#airtemp_year_2
+        final_airtemp['airtemp_year_3']= airtemp.iloc[:, 131:195:4].median(axis=1)#airtemp_year_3
+        final_airtemp['airtemp_year_4']= airtemp.iloc[:, 195:259:4].median(axis=1)#airtemp_year_4
+        final_airtemp['airtemp_year_5']= airtemp.iloc[:, 259:323:4].median(axis=1)#airtemp_year_5
+        final_airtemp['airtemp_year_6']= airtemp.iloc[:, 323:387:4].median(axis=1)#airtemp_year_6
+        final_airtemp['airtemp_year_7']= airtemp.iloc[:, 387:451:4].median(axis=1)#airtemp_year_7
+        final_airtemp['airtemp_year_8']= airtemp.iloc[:, 451:515:4].median(axis=1)#airtemp_year_8
+        final_airtemp['airtemp_year_9']= airtemp.iloc[:, 515:579:4].median(axis=1)#airtemp_year_9
+        final_airtemp['airtemp_year_10']= airtemp.iloc[:, 579:642:4].median(axis=1)#airtemp_year_10
         final_airtemp=final_airtemp.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
         final_airtemp.to_csv('/final_airtemp.csv',index=False)
 
@@ -509,16 +508,16 @@ class CalculationFunctions():
         burn =  pd.read_csv(all_paths[6])
         final_burn = burn[["REGION","AREA"]]
 
-        final_burn['burn_2007']= burn.iloc[:, 3:67:4].median(axis=1)#burn_2007
-        final_burn['burn_2008']= burn.iloc[:, 67:131:4].median(axis=1)#burn_2008
-        final_burn['burn_2009']= burn.iloc[:, 131:195:4].median(axis=1)#burn_2009
-        final_burn['burn_2010']= burn.iloc[:, 195:259:4].median(axis=1)#burn_2010
-        final_burn['burn_2011']= burn.iloc[:, 259:323:4].median(axis=1)#burn_2011
-        final_burn['burn_2012']= burn.iloc[:, 323:387:4].median(axis=1)#burn_2012
-        final_burn['burn_2013']= burn.iloc[:, 387:451:4].median(axis=1)#burn_2013
-        final_burn['burn_2014']= burn.iloc[:, 451:515:4].median(axis=1)#burn_2014
-        final_burn['burn_2015']= burn.iloc[:, 515:579:4].median(axis=1)#burn_2015
-        final_burn['burn_2016']= burn.iloc[:, 579:642:4].median(axis=1)#burn_2016
+        final_burn['burn_year_1']= burn.iloc[:, 3:67:4].median(axis=1)#burn_year_1
+        final_burn['burn_year_2']= burn.iloc[:, 67:131:4].median(axis=1)#burn_year_2
+        final_burn['burn_year_3']= burn.iloc[:, 131:195:4].median(axis=1)#burn_year_3
+        final_burn['burn_year_4']= burn.iloc[:, 195:259:4].median(axis=1)#burn_year_4
+        final_burn['burn_year_5']= burn.iloc[:, 259:323:4].median(axis=1)#burn_year_5
+        final_burn['burn_year_6']= burn.iloc[:, 323:387:4].median(axis=1)#burn_year_6
+        final_burn['burn_year_7']= burn.iloc[:, 387:451:4].median(axis=1)#burn_year_7
+        final_burn['burn_year_8']= burn.iloc[:, 451:515:4].median(axis=1)#burn_year_8
+        final_burn['burn_year_9']= burn.iloc[:, 515:579:4].median(axis=1)#burn_year_9
+        final_burn['burn_year_10']= burn.iloc[:, 579:642:4].median(axis=1)#burn_year_10
 
         final_burn=final_burn.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
         final_burn.to_csv('/final_burn.csv',index=False)
@@ -533,16 +532,16 @@ class CalculationFunctions():
         pdsi = pd.read_csv(all_paths[9])
         final_pdsi = pdsi[["REGION","AREA"]]
 
-        final_pdsi['pdsi_2007']= pdsi.iloc[:, 3:67:4].median(axis=1)#pdsi_2007
-        final_pdsi['pdsi_2008']= pdsi.iloc[:, 67:131:4].median(axis=1)#pdsi_2008
-        final_pdsi['pdsi_2009']= pdsi.iloc[:, 131:195:4].median(axis=1)#pdsi_2009
-        final_pdsi['pdsi_2010']= pdsi.iloc[:, 195:259:4].median(axis=1)#pdsi_2010
-        final_pdsi['pdsi_2011']= pdsi.iloc[:, 259:323:4].median(axis=1)#pdsi_2011
-        final_pdsi['pdsi_2012']= pdsi.iloc[:, 323:387:4].median(axis=1)#pdsi_2012
-        final_pdsi['pdsi_2013']= pdsi.iloc[:, 387:451:4].median(axis=1)#pdsi_2013
-        final_pdsi['pdsi_2014']= pdsi.iloc[:, 451:515:4].median(axis=1)#pdsi_2014
-        final_pdsi['pdsi_2015']= pdsi.iloc[:, 515:579:4].median(axis=1)#pdsi_2015
-        final_pdsi['pdsi_2016']= pdsi.iloc[:, 579:642:4].median(axis=1)#pdsi_2016
+        final_pdsi['pdsi_year_1']= pdsi.iloc[:, 3:67:4].median(axis=1)#pdsi_year_1
+        final_pdsi['pdsi_year_2']= pdsi.iloc[:, 67:131:4].median(axis=1)#pdsi_year_2
+        final_pdsi['pdsi_year_3']= pdsi.iloc[:, 131:195:4].median(axis=1)#pdsi_year_3
+        final_pdsi['pdsi_year_4']= pdsi.iloc[:, 195:259:4].median(axis=1)#pdsi_year_4
+        final_pdsi['pdsi_year_5']= pdsi.iloc[:, 259:323:4].median(axis=1)#pdsi_year_5
+        final_pdsi['pdsi_year_6']= pdsi.iloc[:, 323:387:4].median(axis=1)#pdsi_year_6
+        final_pdsi['pdsi_year_7']= pdsi.iloc[:, 387:451:4].median(axis=1)#pdsi_year_7
+        final_pdsi['pdsi_year_8']= pdsi.iloc[:, 451:515:4].median(axis=1)#pdsi_year_8
+        final_pdsi['pdsi_year_9']= pdsi.iloc[:, 515:579:4].median(axis=1)#pdsi_year_9
+        final_pdsi['pdsi_year_10']= pdsi.iloc[:, 579:642:4].median(axis=1)#pdsi_year_10
         final_pdsi=final_pdsi.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
         final_pdsi.to_csv('/final_pdsi.csv',index=False)
 
@@ -551,16 +550,16 @@ class CalculationFunctions():
         final_runoff = runoff[["REGION","AREA"]]
         final_runoff
 
-        final_runoff['runoff_2007']= runoff.iloc[:, 3:67:4].median(axis=1)#runoff_2007
-        final_runoff['runoff_2008']= runoff.iloc[:, 67:131:4].median(axis=1)#runoff_2008
-        final_runoff['runoff_2009']= runoff.iloc[:, 131:195:4].median(axis=1)#runoff_2009
-        final_runoff['runoff_2010']= runoff.iloc[:, 195:259:4].median(axis=1)#runoff_2010
-        final_runoff['runoff_2011']= runoff.iloc[:, 259:323:4].median(axis=1)#runoff_2011
-        final_runoff['runoff_2012']= runoff.iloc[:, 323:387:4].median(axis=1)#runoff_2012
-        final_runoff['runoff_2013']= runoff.iloc[:, 387:451:4].median(axis=1)#runoff_2013
-        final_runoff['runoff_2014']= runoff.iloc[:, 451:515:4].median(axis=1)#runoff_2014
-        final_runoff['runoff_2015']= runoff.iloc[:, 515:579:4].median(axis=1)#runoff_2015
-        final_runoff['runoff_2016']= runoff.iloc[:, 579:642:4].median(axis=1)#runoff_2016
+        final_runoff['runoff_year_1']= runoff.iloc[:, 3:67:4].median(axis=1)#runoff_year_1
+        final_runoff['runoff_year_2']= runoff.iloc[:, 67:131:4].median(axis=1)#runoff_year_2
+        final_runoff['runoff_year_3']= runoff.iloc[:, 131:195:4].median(axis=1)#runoff_year_3
+        final_runoff['runoff_year_4']= runoff.iloc[:, 195:259:4].median(axis=1)#runoff_year_4
+        final_runoff['runoff_year_5']= runoff.iloc[:, 259:323:4].median(axis=1)#runoff_year_5
+        final_runoff['runoff_year_6']= runoff.iloc[:, 323:387:4].median(axis=1)#runoff_year_6
+        final_runoff['runoff_year_7']= runoff.iloc[:, 387:451:4].median(axis=1)#runoff_year_7
+        final_runoff['runoff_year_8']= runoff.iloc[:, 451:515:4].median(axis=1)#runoff_year_8
+        final_runoff['runoff_year_9']= runoff.iloc[:, 515:579:4].median(axis=1)#runoff_year_9
+        final_runoff['runoff_year_10']= runoff.iloc[:, 579:642:4].median(axis=1)#runoff_year_10
 
         final_runoff=final_runoff.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
         final_runoff.to_csv('/final_runoff.csv',index=False)
@@ -568,16 +567,16 @@ class CalculationFunctions():
         # vpd
         vpd = pd.read_csv(all_paths[10])
         final_vpd = vpd[["REGION","AREA"]]
-        final_vpd['vpd_2007']= vpd.iloc[:, 3:67:4].median(axis=1)#vpd_2007
-        final_vpd['vpd_2008']= vpd.iloc[:, 67:131:4].median(axis=1)#vpd_2008
-        final_vpd['vpd_2009']= vpd.iloc[:, 131:195:4].median(axis=1)#vpd_2009
-        final_vpd['vpd_2010']= vpd.iloc[:, 195:259:4].median(axis=1)#vpd_2010
-        final_vpd['vpd_2011']= vpd.iloc[:, 259:323:4].median(axis=1)#vpd_2011
-        final_vpd['vpd_2012']= vpd.iloc[:, 323:387:4].median(axis=1)#vpd_2012
-        final_vpd['vpd_2013']= vpd.iloc[:, 387:451:4].median(axis=1)#vpd_2013
-        final_vpd['vpd_2014']= vpd.iloc[:, 451:515:4].median(axis=1)#vpd_2014
-        final_vpd['vpd_2015']= vpd.iloc[:, 515:579:4].median(axis=1)#vpd_2015
-        final_vpd['vpd_2016']= vpd.iloc[:, 579:642:4].median(axis=1)#vpd_2016
+        final_vpd['vpd_year_1']= vpd.iloc[:, 3:67:4].median(axis=1)#vpd_year_1
+        final_vpd['vpd_year_2']= vpd.iloc[:, 67:131:4].median(axis=1)#vpd_year_2
+        final_vpd['vpd_year_3']= vpd.iloc[:, 131:195:4].median(axis=1)#vpd_year_3
+        final_vpd['vpd_year_4']= vpd.iloc[:, 195:259:4].median(axis=1)#vpd_year_4
+        final_vpd['vpd_year_5']= vpd.iloc[:, 259:323:4].median(axis=1)#vpd_year_5
+        final_vpd['vpd_year_6']= vpd.iloc[:, 323:387:4].median(axis=1)#vpd_year_6
+        final_vpd['vpd_year_7']= vpd.iloc[:, 387:451:4].median(axis=1)#vpd_year_7
+        final_vpd['vpd_year_8']= vpd.iloc[:, 451:515:4].median(axis=1)#vpd_year_8
+        final_vpd['vpd_year_9']= vpd.iloc[:, 515:579:4].median(axis=1)#vpd_year_9
+        final_vpd['vpd_year_10']= vpd.iloc[:, 579:642:4].median(axis=1)#vpd_year_10
         final_vpd=final_vpd.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
         final_vpd.to_csv('/final_vpd.csv',index=False)
 
@@ -585,16 +584,16 @@ class CalculationFunctions():
         waterdeficit = pd.read_csv(all_paths[11])
         final_waterdeficit = waterdeficit[["REGION","AREA"]]
         
-        final_waterdeficit['waterdeficit_2007']= waterdeficit.iloc[:, 3:67:4].median(axis=1)#waterdeficit_2007
-        final_waterdeficit['waterdeficit_2008']= waterdeficit.iloc[:, 67:131:4].median(axis=1)#waterdeficit_2008
-        final_waterdeficit['waterdeficit_2009']= waterdeficit.iloc[:, 131:195:4].median(axis=1)#waterdeficit_2009
-        final_waterdeficit['waterdeficit_2010']= waterdeficit.iloc[:, 195:259:4].median(axis=1)#waterdeficit_2010
-        final_waterdeficit['waterdeficit_2011']= waterdeficit.iloc[:, 259:323:4].median(axis=1)#waterdeficit_2011
-        final_waterdeficit['waterdeficit_2012']= waterdeficit.iloc[:, 323:387:4].median(axis=1)#waterdeficit_2012
-        final_waterdeficit['waterdeficit_2013']= waterdeficit.iloc[:, 387:451:4].median(axis=1)#waterdeficit_2013
-        final_waterdeficit['waterdeficit_2014']= waterdeficit.iloc[:, 451:515:4].median(axis=1)#waterdeficit_2014
-        final_waterdeficit['waterdeficit_2015']= waterdeficit.iloc[:, 515:579:4].median(axis=1)#waterdeficit_2015
-        final_waterdeficit['waterdeficit_2016']= waterdeficit.iloc[:, 579:642:4].median(axis=1)#waterdeficit_2016
+        final_waterdeficit['waterdeficit_year_1']= waterdeficit.iloc[:, 3:67:4].median(axis=1)#waterdeficit_year_1
+        final_waterdeficit['waterdeficit_year_2']= waterdeficit.iloc[:, 67:131:4].median(axis=1)#waterdeficit_year_2
+        final_waterdeficit['waterdeficit_year_3']= waterdeficit.iloc[:, 131:195:4].median(axis=1)#waterdeficit_year_3
+        final_waterdeficit['waterdeficit_year_4']= waterdeficit.iloc[:, 195:259:4].median(axis=1)#waterdeficit_year_4
+        final_waterdeficit['waterdeficit_year_5']= waterdeficit.iloc[:, 259:323:4].median(axis=1)#waterdeficit_year_5
+        final_waterdeficit['waterdeficit_year_6']= waterdeficit.iloc[:, 323:387:4].median(axis=1)#waterdeficit_year_6
+        final_waterdeficit['waterdeficit_year_7']= waterdeficit.iloc[:, 387:451:4].median(axis=1)#waterdeficit_year_7
+        final_waterdeficit['waterdeficit_year_8']= waterdeficit.iloc[:, 451:515:4].median(axis=1)#waterdeficit_year_8
+        final_waterdeficit['waterdeficit_year_9']= waterdeficit.iloc[:, 515:579:4].median(axis=1)#waterdeficit_year_9
+        final_waterdeficit['waterdeficit_year_10']= waterdeficit.iloc[:, 579:642:4].median(axis=1)#waterdeficit_year_10
 
         final_waterdeficit=final_waterdeficit.drop_duplicates(subset=['AREA','REGION'], keep="last", inplace=False)
         final_waterdeficit.to_csv('/final_waterdeficit.csv',index=False)
