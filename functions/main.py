@@ -7,7 +7,6 @@ from functions.helpers.download import Download_Images
 import os
 from dotenv import load_dotenv
 import sys
-# filename = os.path.join(dirname, 'relative/path/to/file/you/want')
 def download_images(data):
     load_dotenv()
     
