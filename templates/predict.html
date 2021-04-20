@@ -1,75 +1,81 @@
 {% extends "header.html" %}
 {% block content %}
-<div class="container">
-  <h1 class="header center orange-text">Deforestation Prediction</h1>
-  <div class="row center">
-    <h5 class="header col s12 light">Predict the deforestation probability in the given area
-      <br>
-    </h5>
+<style>
+  .card {
+    background-color: rgba(256, 256, 256, 0.8);
+    border-radius: 20px;
+  }
+
+</style>
+<div class="container ">
+  <div class="card">
+    <br>
+    <h1 class="header center green-text">Deforestation Prediction</h1>
     <div class="row center">
-      <a href="{{ url_for('how_to') }}" class="text-orange">Learn how
-        to Get Co-ordinates</a>
+      <h5 class="header col s12 light">Predict the deforestation probability in the given area
+        <br>
+      </h5>
+      <div class="row center">
+        <a href="{{ url_for('how_to') }}" class="text-green">Learn how
+          to Get Co-ordinates</a>
+      </div>
     </div>
-  </div>
-  <div class="container">
-    <form action='/download' method="POST" id="form1" class="col s12 ">
-      <div class="row">
-        <div class="input-field col s6">
-          <br>
-          <input id="Coordinates" name="Coordinates" type="text" class="validate">
-          <label for="Coordinates"><b>Co-ordinates</b></label>
+    <div class="container">
+      <form action='/download' method="POST" id="form1" class="col s12 ">
+        <div class="row">
+          <div class="input-field col s6">
+            <br>
+            <input id="Coordinates" name="Coordinates" type="text" class="validate">
+            <label for="Coordinates"><b>Co-ordinates</b></label>
+
+          </div>
+          <div class="input-field col s6">
+            <label for="Area"><b>Area</b></label>
+            <br>
+            <input id="area" name="area" type="text" class="validate">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <label for="Region"><b>Region</b></label>
+            <br>
+            <input id="region" name="region" type="text" class="validate">
+          </div>
+          <div class="col s6 input-field">
+            <label for="Year"><b>Year</b></label>
+            <br>
+            <select name='year' class="green-text">
+              <option value="2019" class="green-text">2019</option>
+              <option value="2020" class="green-text">2020</option>
+              <option value="2021" class="green-text">2021</option>
+              <option value="2022" class="green-text">2022</option>
+              <option value="2023" class="green-text">2023</option>
+            </select>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <label for="email"><b>Email</b></label>
+            <br>
+            <input id="email" name="email" type="text" class="validate">
+          </div>
+          <div class="input-field col s6">
+            <label for="username"><b>UserName</b></label>
+            <br>
+            <input id="username" name="username" type="text" class="validate">
+          </div>
+        </div>
+        <div class="row centre">
+          <div class="col s6">
+            <button type="submit" form="form1" method="POST"
+              class="btn-large waves-effect waves-light green">Predict</button>
+          </div>
 
         </div>
-        <div class="input-field col s6">
-          <label for="Area"><b>Area</b></label>
-          <br>
-          <input id="area" name="area" type="text" class="validate">
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <label for="Region"><b>Region</b></label>
-          <br>
-          <input id="region" name="region" type="text" class="validate">
-        </div>
-        <div class="col s6 input-field">
-          <label for="Year"><b>Year</b></label>
-          <br>
-          <select class="orange-text">
-            <option value="1" class="orange-text">2019</option>
-            <option value="2" class="orange-text">2020</option>
-            <option value="3" class="orange-text">2021</option>
-            <option value="3" class="orange-text">2022</option>
-            <option value="3" class="orange-text">2023</option>
-          </select>
-
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <label for="email"><b>Email</b></label>
-          <br>
-          <input id="email" name="email" type="text" class="validate">
-        </div>
-        <div class="input-field col s6">
-          <label for="username"><b>UserName</b></label>
-          <br>
-          <input id="username" name="username" type="text" class="validate">
-        </div>
-      </div>
-      <div class="row centre">
-        <div class="col s6">
-          <button type="submit" form="form1" method="POST"
-            class="btn-large waves-effect waves-light orange">Predict</button>
-        </div>
-        <div class=" col s6">
-          <!-- <button class="g-recaptcha" data-sitekey="AIzaSyDdm7pDKdXl8sU5mGxW-bUu55kPklzW2Qw" data-callback='onSubmit'
-            data-action='submit'>Submit</button> -->
-        </div>
-
-      </div>
-    </form>
-
+      </form>
+      <br>
+    </div>
   </div>
   <!-- <script src="https://www.google.com/recaptcha/api.js"></script>
   <script>

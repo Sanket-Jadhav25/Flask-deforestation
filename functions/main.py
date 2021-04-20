@@ -1,4 +1,5 @@
-
+from datetime import datetime
+from functions.helpers.email_ import Email
 from functions.helpers.report import Report
 from functions.helpers.predict import Predict
 from functions.helpers.calculation import CalculationFunctions
@@ -14,22 +15,19 @@ def download_images(data):
     # driveId=os.getenv('driveId')
     driveFolderID=os.getenv('driveFolderID')
     years=[(((int(data['Year']))-3)-x) for x in range(0,10)][::-1]
-    # dwn=Download_Images()
+    dwn=Download_Images()
 
-    # dwn.download(data,years)
-    # folder_id=dwn.check_and_download(temp_drive_folderID,data,driveFolderID)
-    
-    folder_id='16kGWNe3fOKum_8IVNmaCZkGOJKto5e2L'
+    dwn.download(data,years)
+    folder_name=f"{data['User']}-{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+    folder_id=dwn.check_and_download(temp_drive_folderID,data,folder_name,driveFolderID)
     if folder_id:
-    #     #extract features
         cf=CalculationFunctions()
-        
-        # all_paths=cf.create_csv(years)
-        # print('Created CSV')
-        # sys.stdout.flush()
-        # cf.genrate_ds(data,all_paths,folder_id,years)
-        # print("Genrated Dataset")
-        # sys.stdout.flush()
+        all_paths=cf.create_csv(years)
+        print('Created CSV')
+        sys.stdout.flush()
+        cf.genrate_ds(data,all_paths,folder_id,years)
+        print("Genrated Dataset")
+        sys.stdout.flush()
         all_paths=['/main_data.csv',
                 '/forest_data.csv',
                 '/crop_data.csv',
@@ -52,9 +50,15 @@ def download_images(data):
         predictions=pred.predict(df)
         print(predictions)
         sys.stdout.flush()
-        # rp=Report()
+        rp=Report()
         # #TODO
-        # rp.create_report(predictions)
+        rp.create_report(predictions=predictions,csv=df,path=f'reports/{folder_name}.pdf')
+        email=os.getenv('email')
+        password=os.getenv('password')
+        em=Email(email,password)
+        subject=f"Report for {data['Region']} {data['Area']}"
+        mail_content=''
+        em.send_email(reciver=data['email'],subject=subject,content=mail_content,files=[f'reports/{folder_name}.pdf'])
         
         
         

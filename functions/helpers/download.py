@@ -3,6 +3,8 @@ from functions.helpers.missing import FillMissing
 from functions.helpers.earth_engine import EarthEngineFunctions
 from functions.helpers.drive import DriveFunctions
 from tqdm import tqdm
+from datetime import datetime
+
 import sys
 class Download_Images():
   def __init__(self,):
@@ -51,7 +53,7 @@ class Download_Images():
       print(f'Year {year} Done!')
       sys.stdout.flush() 
 
-  def check_and_download(self,folder,data,driveFolderID):
+  def check_and_download(self,folder,data,folder_name,driveFolderID):
       total_size=320
       files=self.df.get_files(folder)
       ATTEMPTES=5
@@ -66,4 +68,4 @@ class Download_Images():
         ATTEMPTES=ATTEMPTES-1
       if len(files)!=total_size:
         return False
-      else:return self.df.create_folder_and_move(data['User'],driveFolderID,files)
+      else:return self.df.create_folder_and_move(folder_name,driveFolderID,files)

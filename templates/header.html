@@ -6,23 +6,51 @@
 
     <!-- CSS  -->
 
+    <link rel="stylesheet" type="text/css" href="//use.fontawesome.com/releases/v5.7.2/css/all.css">
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="static\css\materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="static\css\style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
+<style>
+    body {
+
+        background: url("static\\img\\bg.jpg") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+</style>
 
 <body>
 
     <nav>
-        <div class="nav-wrapper orange">
+        <div class="nav-wrapper green darken-3">
             <!-- <a href="#" class="brand-logo right">Logo</a> -->
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
             <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="{{ url_for('home') }}"">Home</a></li>
-                <li><a href=" #">FAQ's</a></li>
-                <li><a href="#">About Us</a></li>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href=" {{ url_for('faq') }}">FAQ's</a></li>
+                <li><a href="{{ url_for('aboutus') }}">About Us</a></li>
             </ul>
         </div>
     </nav>
+
+
+    <ul id="mobile-demo" class="left sidenav">
+        <li><a href="{{ url_for('home') }}"">Home</a></li>
+        <li><a href=" #">FAQ's</a></li>
+        <li><a href="#">About Us</a></li>
+    </ul>
+    <!-- <ul class="sidenav" id="mobile-demo">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">Javascript</a></li>
+        <li><a href="mobile.html">Mobile</a></li>
+    </ul> -->
     {% block content %}{% endblock %}
 
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

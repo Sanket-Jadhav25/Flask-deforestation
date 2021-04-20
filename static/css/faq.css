@@ -1,0 +1,77 @@
+*{
+    box-sizing: border-box;
+    transition: 0.25s;
+}
+body{
+font: 18px/1.5 system-ui, sans-serif;
+    /* background: #000E; */
+    /* color: dimgray; */
+}
+h1{
+text-align: center;
+font-size: 3rem;
+padding-bottom: 0.25em;
+border-bottom: 1px solid silver;
+/* border-image: linear-gradient(to right, transparent 20%, darkslategrey, transparent 80%)30; */
+}
+/*** Specific styles ***/
+details{
+margin-bottom: 1rem;
+padding: 1rem;
+border-radius: 0.25rem;
+    /* border: 1px solid silver; */
+}
+summary{
+  list-style-type: '✔  ';
+font-size: 1.25rem;
+font-weight: bold;
+cursor: pointer; 
+position: relative;
+    outline: none;
+    /* color: silver; */
+}
+summary::after{
+
+content: "🔻";
+padding: 0.5rem;
+position: absolute;
+right: 0.25rem;
+top: -0.5rem;
+color: whitesmoke;
+}
+details[open]{
+    background: whitesmoke;
+}
+details[open] summary{
+color: dimgrey;
+}
+details[open] summary::after{
+content: "🔺";
+}
+/*** End specific styles ***/
+p{
+color: dimgrey;
+letter-spacing: 1.5;
+}
+
+
+/* Donate layer */
+.donate{
+position: fixed;
+bottom: 0.25rem;
+right: 0.25rem; 
+border-radius: 0.5rem;
+background-color: whitesmoke;
+padding: 0 1rem;
+font-weight: bold;
+color: dimgray;
+}
+.donate a{
+text-decoration: none;
+color: orangered;
+border-bottom: 2px solid transparent;
+transition: 0.35s;
+}
+.donate a:hover{
+border-bottom-color: orangered;
+}

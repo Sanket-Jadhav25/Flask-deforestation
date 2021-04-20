@@ -1,17 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "header.html" %}
+{% block content %}
+<style>
+    .card {
+        background-color: rgba(256, 256, 256, 0.8);
+        border-radius: 20px;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <title>down</title>
-</head>
+</style>
+<div class="container">
+    <div class="card">
+        <h1 class="header center darken-3 green-text">Thank You</h1>
+        <div class="row center">
 
-<body>
-    {% for key, value in data.items() %}
-    <h1>Key: {{key}}</h1>
-    <h2>Value: {{value}}</h2>
-    {% endfor %}
+            <h3 class="header col s12 light">We have mailed you the confimation on {{ data.Email }}</h3>
+            <h3>Once we genrate the report we will mail you on the same address.</h3>
 
-</body>
+            <p>
+                Data genration and prediction process taked approximate 6-7 hours at minimum</p>
+        </div>
+    </div>
+</div>
 
-</html>
+{% endblock %}
