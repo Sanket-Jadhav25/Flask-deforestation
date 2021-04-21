@@ -429,7 +429,7 @@ class CalculationFunctions():
         for df,path in zip(df_dict.values(),all_paths[1:]):
             self.add_to_df(df,path)
             
-    def merge(self, all_paths):
+    def merge(self, all_paths,folder_name):
         forest=pd.read_csv(all_paths[1])
         final_forest = forest[["REGION","AREA"]]
         ll = 2
@@ -613,4 +613,5 @@ class CalculationFunctions():
         for path in all_main_paths:
             temp=pd.read_csv(path,index_col=False)
             df = pd.merge(df, temp,  how='left', left_on=['AREA','REGION'], right_on =['AREA','REGION'])
-        return df
+        df.to_csv(f'{folder_name}.csv', index=False)
+        return '{folder_name}.csv'

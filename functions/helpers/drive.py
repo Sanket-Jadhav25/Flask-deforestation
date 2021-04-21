@@ -3,7 +3,7 @@ from functions.helpers.authenticate import authenticate_drive
 import os
 from dotenv.main import load_dotenv
 import io
-from googleapiclient.http import MediaIoBaseDownload
+from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 
 class DriveFunctions():
   def __init__(self,):
@@ -12,6 +12,15 @@ class DriveFunctions():
     
     self.service=authenticate_drive(file_path=file_path)
     self.driveId=os.getenv('driveId')
+  def get_file(self,filename,fileId):
+    request = self.service.files().get_media(fileId=fileId)
+    fh = io.FileIO(filename, "wb")
+    downloader = MediaIoBaseDownload(fh, request)
+    done = False
+    while done is False:
+        _, done = downloader.next_chunk()
+    return True
+    
   def get_image_id(self,name,folder_id):
     files=self.get_files(folder_id,driveId=self.driveId)
     return [x for x in files if x['name']==f'{name}'][0]['id']
@@ -110,3 +119,10 @@ class DriveFunctions():
 
   def find_file(self,name):
     return self.service.files().list(q=f"name='{name}'",fields='nextPageToken, files(id, name)').execute()
+  def upload_file(self,path,folder_id):
+    file_metadata = {'name': path,'mimetype':'text/csv','parents' : folder_id}
+    media = MediaFileUpload('test.csv', mimetype='text/csv')
+    file = self.service.files().create(body=file_metadata,
+                                        media_body=media,
+                                        fields='id').execute()
+    return file

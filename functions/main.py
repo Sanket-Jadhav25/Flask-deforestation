@@ -1,4 +1,7 @@
 from datetime import datetime
+
+from googleapiclient.http import MediaFileUpload
+import pandas as pd
 from functions.helpers.email_ import Email
 from functions.helpers.report import Report
 from functions.helpers.predict import Predict
@@ -45,19 +48,22 @@ def download_images(data):
                 '/pdsi_data.csv',
                 '/vpd_data.csv',
                 '/waterdeficit_data.csv']
-        df=cf.merge(all_paths)
+        path=cf.merge(all_paths,folder_name)
+        fileId=df.upload_file(path,folder_id)
+        df.get_file(path,fileId)
+        x=pd.read_csv(path)
         print("Merged Dataset")
         sys.stdout.flush()
-        print(df)
+        print(x)
         sys.stdout.flush()
         #predict
         pred=Predict(os.path.abspath(os.path.join(os.getcwd(),os.getenv('model_path'))))
-        predictions=pred.predict(df)
+        predictions=pred.predict(x)
         print(predictions)
         sys.stdout.flush()
         rp=Report()
         # #TODO
-        rp.create_report(predictions=predictions,csv=df,path=f'reports/{folder_name}.pdf')
+        rp.create_report(predictions,x,path=f'reports/{folder_name}.pdf')
         email=os.getenv('email')
         password=os.getenv('password')
         em=Email(email,password)
