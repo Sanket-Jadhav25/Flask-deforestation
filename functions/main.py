@@ -15,10 +15,13 @@ def download_images(data):
     driveFolderID=os.getenv('driveFolderID')
     years=[(((int(data['Year']))-3)-x) for x in range(0,10)][::-1]
     df=DriveFunctions()
-    folder_name=f"{data['User']}-{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+    # folder_name=f"{data['User']}-{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+    folder_name="mumbai_india_omkar"
+
     dwn=Download_Images()
-    temp_drive_folderID=df.create_folder(f"temp_{folder_name}")
-    dwn.download(data,years,destination_folder=temp_drive_folderID)
+    # temp_drive_folderID=df.create_folder(f"temp_{folder_name}")
+    temp_drive_folderID='1AMlvrsFhUscTfkdvMClsfAORuiLJFq5L'
+    # dwn.download(data,years,destination_folder=temp_drive_folderID)
     folder_id=dwn.check_and_download(temp_drive_folderID,data,folder_name,driveFolderID)
     if folder_id:
         cf=CalculationFunctions()

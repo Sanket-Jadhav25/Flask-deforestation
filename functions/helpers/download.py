@@ -56,6 +56,7 @@ class Download_Images():
   def check_and_download(self,folder,data,folder_name,driveFolderID):
       total_size=320
       files=self.df.get_files(folder)
+      print(len(files))
       ATTEMPTES=5
       while len(files)!=total_size and ATTEMPTES!=0: 
         missing_years=self.fm.find_missing_years(files)

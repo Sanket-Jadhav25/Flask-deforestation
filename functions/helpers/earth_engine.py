@@ -5,6 +5,7 @@ from functions.helpers.authenticate import authenticate_ee
 import time
 class EarthEngineFunctions():
   def __init__(self,):
+    load_dotenv()
     service_account = os.getenv('service_account')
     file_path=os.path.abspath(os.path.join(os.getcwd(),os.getenv('service_account_file_path')))
     self.ee=authenticate_ee(file_path=file_path,service_account=service_account)

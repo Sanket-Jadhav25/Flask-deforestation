@@ -7,7 +7,9 @@ from googleapiclient.http import MediaIoBaseDownload
 
 class DriveFunctions():
   def __init__(self,):
+    load_dotenv()
     file_path=os.getenv('service_account_file_path')
+    
     self.service=authenticate_drive(file_path=file_path)
     self.driveId=os.getenv('driveId')
   def get_image_id(self,name,folder_id):
