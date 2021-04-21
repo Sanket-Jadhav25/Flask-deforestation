@@ -49,6 +49,7 @@ class Download_Images():
         self.eef.drive_transfer(img=ee_image_Idaho,name=name,cord=elements[i],band_list=IdahoBands,destination_folder=destination_folder)
         name=f"{data['Region']}_{data['Area']}_{year}_G{i}"
         self.eef.drive_transfer(img=ee_image_landsat,name=name,cord=elements[i],band_list=landsatBands,destination_folder=destination_folder)
+        print(name)
         sys.stdout.flush()
       print(f'Year {year} Done!')
       sys.stdout.flush() 

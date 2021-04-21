@@ -147,10 +147,10 @@ class CalculationFunctions():
         idaho_name=f"{region}_{area}_{year}_G{grid}__Idaho.tif"
         landsat_name=f"{region}_{area}_{year}_G{grid}.tif"
 
-        if self.df.get_image(landsat_name,folder_id):
+        if self.df.get_image(landsat_name,folder_id,driveId='0AK91Kjn50C2rUk9PVA'):
             landsat_image = rasterio.open(landsat_name)
         
-        if self.df.get_image(idaho_name,folder_id):
+        if self.df.get_image(idaho_name,folder_id,driveId='0AK91Kjn50C2rUk9PVA'):
             idaho_image = rasterio.open(idaho_name)
 
         if isl8:

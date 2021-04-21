@@ -19,10 +19,12 @@ def download_images(data):
     folder_name="mumbai_india_omkar"
 
     dwn=Download_Images()
-    # temp_drive_folderID=df.create_folder(f"temp_{folder_name}")
+    temp_folder_name=f"temp_{folder_name}"
+    # temp_drive_folderID=df.create_folder(temp_folder_name)
     temp_drive_folderID='1AMlvrsFhUscTfkdvMClsfAORuiLJFq5L'
-    # dwn.download(data,years,destination_folder=temp_drive_folderID)
-    folder_id=dwn.check_and_download(temp_drive_folderID,data,folder_name,driveFolderID)
+    # dwn.download(data,years,destination_folder=temp_folder_name)
+    # folder_id=dwn.check_and_download(temp_drive_folderID,data,folder_name,driveFolderID)
+    folder_id='1RATqMUFmt8R3uUy2q1ixs3M7ZIMwLHuV'
     if folder_id:
         cf=CalculationFunctions()
         all_paths=cf.create_csv(years)
