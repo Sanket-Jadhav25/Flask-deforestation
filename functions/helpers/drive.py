@@ -121,7 +121,7 @@ class DriveFunctions():
     return self.service.files().list(q=f"name='{name}'",fields='nextPageToken, files(id, name)').execute()
   def upload_file(self,path,folder_id):
     file_metadata = {'name': path,'mimetype':'text/csv','parents' : folder_id}
-    media = MediaFileUpload('test.csv', mimetype='text/csv')
+    media = MediaFileUpload(path, mimetype='text/csv')
     file = self.service.files().create(body=file_metadata,
                                         media_body=media,
                                         fields='id').execute()
