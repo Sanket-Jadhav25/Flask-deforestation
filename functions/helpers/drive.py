@@ -84,9 +84,13 @@ class DriveFunctions():
     ).execute()
 
   def create_folder(self,name,parentID=None):
+    if parentID:
+      parents=[parentID]
+    else:
+      parents=[]
     file_metadata = {
       'name': name,
-      'parents' : [parentID],
+      'parents' : parents,
       'mimeType': 'application/vnd.google-apps.folder'
       }
     file = self.service.files().create(body=file_metadata,supportsAllDrives=True,fields='id').execute()
