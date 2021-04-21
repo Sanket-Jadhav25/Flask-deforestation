@@ -614,4 +614,4 @@ class CalculationFunctions():
             temp=pd.read_csv(path,index_col=False)
             df = pd.merge(df, temp,  how='left', left_on=['AREA','REGION'], right_on =['AREA','REGION'])
         df.to_csv(f'{folder_name}.csv', index=False)
-        return '{folder_name}.csv'
+        return f'{folder_name}.csv'
