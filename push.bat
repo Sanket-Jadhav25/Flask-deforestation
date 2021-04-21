@@ -3,4 +3,4 @@ call heroku builds:cancel
 call heroku restart
 call git add .
 call git commit -m %1
-call git push
+call git push heroku master
