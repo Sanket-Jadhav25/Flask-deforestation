@@ -1,5 +1,5 @@
 from google.oauth2 import service_account
-# import ee
+import ee
 from apiclient import discovery
 
 def authenticate_ee(file_path,service_account):  
