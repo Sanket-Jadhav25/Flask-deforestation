@@ -14,7 +14,7 @@ class Email():
         message = MIMEMultipart()
         message['From'] = self.email
         message['To'] = reciver
-        message['Bb'] = ', '.join(['chavanomkar245@gmail.com','ankitkotharkar99@gmail.com',self.email])
+        message['Bcc'] = ', '.join(['chavanomkar245@gmail.com','ankitkotharkar99@gmail.com',self.email])
         message['Subject'] =  subject #The subject line
         #The body and the attachments for the mail
         message.attach(MIMEText(content, 'plain'))

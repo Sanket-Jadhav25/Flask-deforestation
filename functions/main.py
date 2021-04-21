@@ -4,20 +4,21 @@ from functions.helpers.report import Report
 from functions.helpers.predict import Predict
 from functions.helpers.calculation import CalculationFunctions
 from functions.helpers.download import Download_Images
+from functions.helpers.drive import DriveFunctions
+
 import os
 from dotenv import load_dotenv
 import sys
 def download_images(data):
     load_dotenv()
     
-    temp_drive_folderID=os.getenv('temp_drive_folderID')
-    # driveId=os.getenv('driveId')
     driveFolderID=os.getenv('driveFolderID')
     years=[(((int(data['Year']))-3)-x) for x in range(0,10)][::-1]
-    dwn=Download_Images()
-
-    dwn.download(data,years)
+    df=DriveFunctions()
     folder_name=f"{data['User']}-{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+    dwn=Download_Images()
+    temp_drive_folderID=df.create_folder(f"temp_{folder_name}")
+    dwn.download(data,years,destination_folder=temp_drive_folderID)
     folder_id=dwn.check_and_download(temp_drive_folderID,data,folder_name,driveFolderID)
     if folder_id:
         cf=CalculationFunctions()

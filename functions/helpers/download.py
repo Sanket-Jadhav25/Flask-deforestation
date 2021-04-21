@@ -13,10 +13,9 @@ class Download_Images():
     self.gc=GridCal()
     self.fm=FillMissing(self.eef,self.df,self.gc)
     
-  def download(self,data,years):
+  def download(self,data,years,destination_folder):
     print('Downloading')
     sys.stdout.flush()
-    destination_folder="LandsatImages"
     # get data coordinates
     area=data['Co-ordinate']
     # genrate 4*4 grid of the coordinates
@@ -50,6 +49,7 @@ class Download_Images():
         self.eef.drive_transfer(img=ee_image_Idaho,name=name,cord=elements[i],band_list=IdahoBands,destination_folder=destination_folder)
         name=f"{data['Region']}_{data['Area']}_{year}_G{i}"
         self.eef.drive_transfer(img=ee_image_landsat,name=name,cord=elements[i],band_list=landsatBands,destination_folder=destination_folder)
+        sys.stdout.flush()
       print(f'Year {year} Done!')
       sys.stdout.flush() 
 
