@@ -29,29 +29,29 @@ def download_images(data):
     # folder_id=dwn.check_and_download(temp_drive_folderID,data,folder_name,driveFolderID)
     folder_id='1RATqMUFmt8R3uUy2q1ixs3M7ZIMwLHuV'
     if folder_id:
-        cf=CalculationFunctions()
-        all_paths=cf.create_csv(years)
-        print('Created CSV')
-        sys.stdout.flush()
-        cf.genrate_ds(data,all_paths,folder_id,years)
-        print("Genrated Dataset")
-        sys.stdout.flush()
-        all_paths=['/main_data.csv',
-                '/forest_data.csv',
-                '/crop_data.csv',
-                '/builtup_data.csv',
-                '/airtemp_data.csv',
-                '/lst_data.csv',
-                '/burn_data.csv',
-                '/ndvi_data.csv',
-                '/runoff_data.csv',
-                '/pdsi_data.csv',
-                '/vpd_data.csv',
-                '/waterdeficit_data.csv']
-        path=cf.merge(all_paths,folder_name)
-        fileId=df.upload_file(path,folder_id)
-        df.get_file(path,fileId)
-        x=pd.read_csv(path)
+        # cf=CalculationFunctions()
+        # all_paths=cf.create_csv(years)
+        # print('Created CSV')
+        # sys.stdout.flush()
+        # cf.genrate_ds(data,all_paths,folder_id,years)
+        # print("Genrated Dataset")
+        # sys.stdout.flush()
+        # all_paths=['/main_data.csv',
+        #         '/forest_data.csv',
+        #         '/crop_data.csv',
+        #         '/builtup_data.csv',
+        #         '/airtemp_data.csv',
+        #         '/lst_data.csv',
+        #         '/burn_data.csv',
+        #         '/ndvi_data.csv',
+        #         '/runoff_data.csv',
+        #         '/pdsi_data.csv',
+        #         '/vpd_data.csv',
+        #         '/waterdeficit_data.csv']
+        # path=cf.merge(all_paths,folder_name)
+        # fileId=df.upload_file(path,folder_id)
+        df.get_file('test.csv','116RUOrAIiXQignh2AkLLks616oubq2Qf')
+        x=pd.read_csv('test.csv')
         print("Merged Dataset")
         sys.stdout.flush()
         print(x)
