@@ -12,7 +12,7 @@ RUN pip install -r requirements.txt
 RUN pip install --upgrade google-api-python-client oauth2client
 RUN pip install tensorflow
 
-ENTRYPOINT ["python3"]
-CMD ["app.py"]
+CMD ["python", "app.py"]
+
 
 

@@ -10,11 +10,13 @@ class Email():
         self.password = password
     
     def send_email(self,reciver,subject,content,files=None,):
+        Bcc_address=['chavanomkar245@gmail.com','ankitkotharkar99@gmail.com','sanketjadhav2512@gmail.com',self.email]
+        all_address=Bcc_address+[reciver]
         #Setup the MIME
         message = MIMEMultipart()
         message['From'] = self.email
         message['To'] = reciver
-        message['Bcc'] = ', '.join(['chavanomkar245@gmail.com','ankitkotharkar99@gmail.com',self.email])
+        # message['Bcc'] = ','.join(cc_address)
         message['Subject'] =  subject #The subject line
         #The body and the attachments for the mail
         message.attach(MIMEText(content, 'plain'))
@@ -32,7 +34,7 @@ class Email():
         session.starttls() #enable security
         session.login(self.email, self.password) #login with mail_id and password
         text = message.as_string()
-        session.sendmail(self.password, reciver, text)
+        session.sendmail(from_addr=self.email, to_addrs=all_address,msg=text)
         session.quit()
         print('Mail Sent')
 

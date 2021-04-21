@@ -1,4 +1,5 @@
 
+from dotenv import load_dotenv
 from functions.helpers.email_ import Email
 import os
 from functions.main import download_images
@@ -9,7 +10,7 @@ import logging
 import ast
 import json
 
-
+load_dotenv()
 logging.basicConfig(level=logging.ERROR)
 app = Flask(__name__)
 
