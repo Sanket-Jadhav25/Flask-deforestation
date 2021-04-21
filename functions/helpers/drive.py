@@ -83,7 +83,7 @@ class DriveFunctions():
         fields='id, parents'
     ).execute()
 
-  def create_folder(self,name,parentID=''):
+  def create_folder(self,name,parentID=None):
     file_metadata = {
       'name': name,
       'parents' : [parentID],

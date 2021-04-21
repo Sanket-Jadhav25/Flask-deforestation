@@ -64,7 +64,7 @@ def download():
         password=os.getenv('password')
         em=Email(email,password)
         subject='Confirmation'
-        mail_content='We have recived your request'
+        mail_content=f"We have recived your request for {data['Region']} {data['Area']}"
         em.send_email(reciver=data['Email'],subject=subject,content=mail_content)
         return render_template('download.html',data=data)
 
