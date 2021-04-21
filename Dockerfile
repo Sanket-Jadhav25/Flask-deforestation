@@ -1,7 +1,7 @@
 FROM python:3.8.0-slim
 COPY . /app
 WORKDIR /app
-# RUN add-apt-repository ppa:ubuntugis/ppa
+RUN add-apt-repository ppa:ubuntugis/ppa
 RUN apt-get install -y gdal-bin libgdal-dev
 RUN pip install -U pip
 RUN pip install rasterio
