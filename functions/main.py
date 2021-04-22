@@ -18,39 +18,39 @@ def download_images(data):
     driveFolderID=os.getenv('driveFolderID')
     years=[(((int(data['Year']))-3)-x) for x in range(0,10)][::-1]
     df=DriveFunctions()
-    # folder_name=f"{data['User']}-{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
-    folder_name="mumbai_india_omkar"
+    folder_name=f"{data['User']}-{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
 
     dwn=Download_Images()
     temp_folder_name=f"temp_{folder_name}"
-    # temp_drive_folderID=df.create_folder(temp_folder_name)
-    temp_drive_folderID='1AMlvrsFhUscTfkdvMClsfAORuiLJFq5L'
-    # dwn.download(data,years,destination_folder=temp_folder_name)
-    # folder_id=dwn.check_and_download(temp_drive_folderID,data,folder_name,driveFolderID)
-    folder_id='1RATqMUFmt8R3uUy2q1ixs3M7ZIMwLHuV'
+    temp_drive_folderID=df.create_folder(temp_folder_name)
+    
+    dwn.download(data,years,destination_folder=temp_folder_name)
+    
+    folder_id=dwn.check_and_download(temp_drive_folderID,data,folder_name,driveFolderID)
+    
     if folder_id:
-        # cf=CalculationFunctions()
-        # all_paths=cf.create_csv(years)
-        # print('Created CSV')
-        # sys.stdout.flush()
-        # cf.genrate_ds(data,all_paths,folder_id,years)
-        # print("Genrated Dataset")
-        # sys.stdout.flush()
-        # all_paths=['/main_data.csv',
-        #         '/forest_data.csv',
-        #         '/crop_data.csv',
-        #         '/builtup_data.csv',
-        #         '/airtemp_data.csv',
-        #         '/lst_data.csv',
-        #         '/burn_data.csv',
-        #         '/ndvi_data.csv',
-        #         '/runoff_data.csv',
-        #         '/pdsi_data.csv',
-        #         '/vpd_data.csv',
-        #         '/waterdeficit_data.csv']
-        # path=cf.merge(all_paths,folder_name)
-        # fileId=df.upload_file(path,folder_id)
-        df.get_file('test.csv','116RUOrAIiXQignh2AkLLks616oubq2Qf')
+        cf=CalculationFunctions()
+        all_paths=cf.create_csv(years)
+        print('Created CSV')
+        sys.stdout.flush()
+        cf.genrate_ds(data,all_paths,folder_id,years)
+        print("Genrated Dataset")
+        sys.stdout.flush()
+        all_paths=['/main_data.csv',
+                '/forest_data.csv',
+                '/crop_data.csv',
+                '/builtup_data.csv',
+                '/airtemp_data.csv',
+                '/lst_data.csv',
+                '/burn_data.csv',
+                '/ndvi_data.csv',
+                '/runoff_data.csv',
+                '/pdsi_data.csv',
+                '/vpd_data.csv',
+                '/waterdeficit_data.csv']
+        path=cf.merge(all_paths,folder_name)
+        fileId=df.upload_file(path,folder_id)
+        df.get_file('test.csv',fileId)
         forest=pd.read_csv('test.csv')
         print("Merged Dataset")
         sys.stdout.flush()
@@ -62,8 +62,7 @@ def download_images(data):
         print(predictions)
         sys.stdout.flush()
         rp=Report()
-        # #TODO
-        report_path=report_path=rp.create_report(predictions[0][0],forest,data)
+        report_path=report_path=rp.create_report(predictions[0][0],forest,data,years)
         email=os.getenv('email')
         password=os.getenv('password')
         em=Email(email,password)

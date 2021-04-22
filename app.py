@@ -7,7 +7,6 @@ from functions.helpers.database import DataBase
 from flask import Flask,render_template,request
 import threading
 import logging
-import ast
 import json
 
 load_dotenv()
@@ -36,37 +35,38 @@ def download():
     if request.method == "POST":
         # db=DataBase('database.db')
         
-        # coords=json.loads(request.form.get("Coordinates"))['features'][0]['geometry']['coordinates']
-        # email = request.form.get("email")
-        # area = request.form.get("area")
-        # region = request.form.get("region")
-        # username = request.form.get("username")
-        # year = int(request.form.get("year"))
+        coords=json.loads(request.form.get("Coordinates"))['features'][0]['geometry']['coordinates']
+        email = request.form.get("email")
+        area = request.form.get("area")
+        region = request.form.get("region")
+        username = request.form.get("username")
+        year = int(request.form.get("year"))
 
-        # data={'Area': area,
-        #     'Co-ordinate': coords,
-        #     'Region': region,
-        #     'User':username,
-        #     'Email':email,
-        #     'Year':year}
-        data={'Area': 'Mumbai',
-            'Co-ordinate': [[[1.2289239793090503, 42.36919824433563],
-                        [1.572418212890625, 42.36919824433563],
-                        [1.572418212890625, 42.541619138577296],
-                        [1.2289239793090503, 42.541619138577296],
-                        [1.2289239793090503, 42.36919824433563]]],
-            'Region': 'India',
-            'User':'Omkar',
-            'Email':'meomkarchavan99@gmail.com',
-            'Year':2023}
+        data={'Area': area,
+            'Co-ordinate': coords,
+            'Region': region,
+            'User':username,
+            'Email':email,
+            'Year':year}
+        # data={'Area': 'Mumbai',
+        #     'Co-ordinate': [[[1.2289239793090503, 42.36919824433563],
+        #                 [1.572418212890625, 42.36919824433563],
+        #                 [1.572418212890625, 42.541619138577296],
+        #                 [1.2289239793090503, 42.541619138577296],
+        #                 [1.2289239793090503, 42.36919824433563]]],
+        #     'Region': 'India',
+        #     'User':'Omkar',
+        #     'Email':'meomkarchavan99@gmail.com',
+        #     'Year':2023}
         thread = threading.Thread(target=download_images, kwargs={'data':data},)
         thread.start()
-        # email=os.getenv('email')
-        # password=os.getenv('password')
-        # em=Email(email,password)
-        # subject='Confirmation'
-        # mail_content=f"We have recived your request for {data['Region']} {data['Area']}"
-        # em.send_email(reciver=data['Email'],subject=subject,content=mail_content)
+        
+        email=os.getenv('email')
+        password=os.getenv('password')
+        em=Email(email,password)
+        subject='Confirmation'
+        mail_content=f"We have recived your request for {data['Region']} {data['Area']}"
+        em.send_email(reciver=data['Email'],subject=subject,content=mail_content)
         return render_template('download.html',data=data)
 
 

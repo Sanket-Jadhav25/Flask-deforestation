@@ -12,7 +12,7 @@ class Report():
     def __init__(self):
         pass
     
-    def create_report(self,predictions,forest,data):
+    def create_report(self,predictions,forest,data,years):
         
         width = 210
         height = 297
@@ -64,7 +64,7 @@ class Report():
 
         x = 35
         y = 230
-        pdf.text(x-2, y+12, str(predicted_area))
+        pdf.text(x-2, y+12, str(round(predicted_area,2)))
         pdf.set_font('Arial', 'B', 30)
         # pdf.text(x, y + 15, 'percetage')
         pdf.text(x+2, y + 25, 'Sq. KM')
@@ -78,10 +78,9 @@ class Report():
         del forest["AREA"]
         a = list(forest.iloc[0])
         y = a[1:11]
-        x = [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020]
         fig = plt.figure(figsize=(6, 3.7), dpi=300, edgecolor = "green")
-        plt.plot(x,y, color = "green")
-        plt.xticks(np.arange(min(x), max(x)+1, 1.0))
+        plt.plot(years,y, color = "green")
+        plt.xticks(np.arange(min(years), max(years)+1, 1.0))
         plt.ylabel('Forest in Sq. km')
         plt.xlabel('Years')
         plt.savefig("figure1.png")
