@@ -21,12 +21,12 @@ class Report():
 
         pdf = FPDF()
         pdf.add_page()
-        pdf.image(os.path.abspath(os.path.join(os.getcwd(),"report_templates\deforestation1.png")),0,0,width, height)      #image 1
+        pdf.image(os.path.abspath(os.path.join(os.getcwd(),"report_templates/deforestation1.png")),0,0,width, height)      #image 1
 
         # -------------------------------------------------------
 
         pdf.add_page()
-        pdf.image(os.path.abspath(os.path.join(os.getcwd(),"report_templates\deforestation2.png")),0,0,width, height)       #image 2
+        pdf.image(os.path.abspath(os.path.join(os.getcwd(),"report_templates/deforestation2.png")),0,0,width, height)       #image 2
 
         name = f"{data['Region']} {data['Area']}"                      #name of the area
         total_area = forest['TOTAL_AREA']                                                  #toatl area 
@@ -72,7 +72,7 @@ class Report():
         # -------------------------------------------------------
         
         pdf.add_page()
-        pdf.image(os.path.abspath(os.path.join(os.getcwd(),"report_templates\deforestation3.png")),0,0,width, height)                #image3
+        pdf.image(os.path.abspath(os.path.join(os.getcwd(),"report_templates/deforestation3.png")),0,0,width, height)                #image3
         pdf.set_font('Arial', 'B', 16)
         # pdf.cell(40, 10, 'Hello World!')
         # pdf.add_page()
