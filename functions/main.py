@@ -38,7 +38,7 @@ def download_images(data):
         sys.stdout.flush()
         path=cf.merge(all_paths,'omkar2-2021-04-22_06-19-06')
         fileId=df.upload_file(path,folder_id)
-        df.move_file(fileId,folder_id)
+        # df.move_file(fileId,folder_id)
         df.get_file('test.csv',fileId)
         forest=pd.read_csv('test.csv')
         print("Merged Dataset")
