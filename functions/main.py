@@ -15,20 +15,18 @@ import sys
 def download_images(data):
     load_dotenv()
     
-    # driveFolderID=os.getenv('driveFolderID')
+    driveFolderID=os.getenv('driveFolderID')
     years=[(((int(data['Year']))-3)-x) for x in range(0,10)][::-1]
     df=DriveFunctions()
-    # folder_name=f"{data['User']}-{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+    folder_name=f"{data['User']}-{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
 
-    # dwn=Download_Images()
-    # temp_folder_name=f"temp_{folder_name}"
-    # temp_drive_folderID=df.create_folder(temp_folder_name)
+    dwn=Download_Images()
+    temp_folder_name=f"temp_{folder_name}"
+    temp_drive_folderID=df.create_folder(temp_folder_name)
     
-    # dwn.download(data,years,destination_folder=temp_folder_name)
+    dwn.download(data,years,destination_folder=temp_folder_name)
     
-    # folder_id=dwn.check_and_download(temp_drive_folderID,data,folder_name,driveFolderID)
-    folder_id='1Y3gIldKi9C-V1XZFk7u_OThAJpZUJYz9'
-    folder_name='omkar-2021-04-22_13-49-43'
+    folder_id=dwn.check_and_download(temp_drive_folderID,data,folder_name,driveFolderID)
     if folder_id:
         cf=CalculationFunctions()
         all_paths=cf.create_csv(years)
