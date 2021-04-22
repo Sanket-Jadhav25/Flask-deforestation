@@ -63,7 +63,7 @@ def download_images(data):
         sys.stdout.flush()
         rp=Report()
         # #TODO
-        report_path=report_path=rp.create_report(predictions,forest,data)
+        report_path=report_path=rp.create_report(predictions[0],forest,data)
         email=os.getenv('email')
         password=os.getenv('password')
         em=Email(email,password)

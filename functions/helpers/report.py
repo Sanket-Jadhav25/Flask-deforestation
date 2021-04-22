@@ -74,9 +74,6 @@ class Report():
         pdf.add_page()
         pdf.image(os.path.abspath(os.path.join(os.getcwd(),"report_templates/deforestation3.png")),0,0,width, height)                #image3
         pdf.set_font('Arial', 'B', 16)
-        # pdf.cell(40, 10, 'Hello World!')
-        # pdf.add_page()
-        # forest = pd.read_csv(r'D:\final.csv')                                        #csv data
         del forest["REGION"]
         del forest["AREA"]
         a = list(forest.iloc[0])
@@ -90,8 +87,8 @@ class Report():
         plt.savefig("figure1.png")
         pdf.image("figure1.png",10,77, width-10,((width-10)/6)*3.7)
         pdf.set_font('Arial', 'B', 18)
-        last_year_area_forest = 486                                                 #current last year foreset data
-        last_year_area_crop = 195                                                   #current last year crops data
+        last_year_area_forest = forest['forest_year_10']                                                 #current last year foreset data
+        last_year_area_crop = forest['crops_year_10']                          #current last year crops data
         pdf.text(21, 247, '%.1f'%(last_year_area_forest/total_area * 100) + "%")
         pdf.text(115, 247, '%.1f'%(last_year_area_crop/total_area * 100) + "%")
         path=os.path.abspath(os.path.join(os.getcwd(),f"reports/{name}.pdf"))
