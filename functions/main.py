@@ -15,29 +15,29 @@ import sys
 def download_images(data):
     load_dotenv()
     
-    driveFolderID=os.getenv('driveFolderID')
+    # driveFolderID=os.getenv('driveFolderID')
     years=[(((int(data['Year']))-3)-x) for x in range(0,10)][::-1]
     df=DriveFunctions()
-    folder_name=f"{data['User']}-{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+    # folder_name=f"{data['User']}-{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
 
-    dwn=Download_Images()
-    temp_folder_name=f"temp_{folder_name}"
-    temp_drive_folderID=df.create_folder(temp_folder_name)
+    # dwn=Download_Images()
+    # temp_folder_name=f"temp_{folder_name}"
+    # temp_drive_folderID=df.create_folder(temp_folder_name)
     
-    dwn.download(data,years,destination_folder=temp_folder_name)
+    # dwn.download(data,years,destination_folder=temp_folder_name)
     
-    folder_id=dwn.check_and_download(temp_drive_folderID,data,folder_name,driveFolderID)
-    if folder_id:
-        cf=CalculationFunctions()
-        all_paths=cf.create_csv(years)
-        print('Created CSV')
-        sys.stdout.flush()
-        cf.genrate_ds(data,all_paths,folder_id,years)
-        print("Genrated Dataset")
-        sys.stdout.flush()
-        path=cf.merge(all_paths,folder_name)
-        fileId=df.upload_file(path,folder_id)
-        df.get_file('test.csv',fileId)
+    # folder_id=dwn.check_and_download(temp_drive_folderID,data,folder_name,driveFolderID)
+    if True:
+        # cf=CalculationFunctions()
+        # all_paths=cf.create_csv(years)
+        # print('Created CSV')
+        # sys.stdout.flush()
+        # cf.genrate_ds(data,all_paths,folder_id,years)
+        # print("Genrated Dataset")
+        # sys.stdout.flush()
+        # path=cf.merge(all_paths,folder_name)
+        # fileId=df.upload_file(path,folder_id)
+        df.get_file('test.csv','11X9rNUyk_ey4DZO-XPBiCX6r17lS9AYk')
         forest=pd.read_csv('test.csv')
         print("Merged Dataset")
         sys.stdout.flush()

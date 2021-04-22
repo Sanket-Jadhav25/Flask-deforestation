@@ -61,12 +61,12 @@ def download():
         thread = threading.Thread(target=download_images, kwargs={'data':data},)
         thread.start()
         
-        email=os.getenv('email')
-        password=os.getenv('password')
-        em=Email(email,password)
-        subject='Confirmation'
-        mail_content=f"We have recived your request for {data['Region']} {data['Area']}"
-        em.send_email(reciver=data['Email'],subject=subject,content=mail_content)
+        # email=os.getenv('email')
+        # password=os.getenv('password')
+        # em=Email(email,password)
+        # subject='Confirmation'
+        # mail_content=f"We have recived your request for {data['Region']} {data['Area']}"
+        # em.send_email(reciver=data['Email'],subject=subject,content=mail_content)
         return render_template('download.html',data=data)
 
 

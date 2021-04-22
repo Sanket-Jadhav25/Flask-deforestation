@@ -13,7 +13,7 @@ class DriveFunctions():
     self.service=authenticate_drive(file_path=file_path)
     self.driveId=os.getenv('driveId')
   def get_file(self,filename,fileId):
-    request = self.service.files().get_media(fileId=fileId)
+    request = self.service.files().get_media(fileId=fileId,supportsAllDrives=True,supportsTeamDrives=True)
     fh = io.FileIO(filename, "wb")
     downloader = MediaIoBaseDownload(fh, request)
     done = False
