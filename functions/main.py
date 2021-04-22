@@ -27,19 +27,18 @@ def download_images(data):
     # dwn.download(data,years,destination_folder=temp_folder_name)
     
     # folder_id=dwn.check_and_download(temp_drive_folderID,data,folder_name,driveFolderID)
-    folder_id=True
+    folder_id='1JjhIWlXWT5sAxiYkr7fik6EnM3Trxc2d'
     if folder_id:
-        # cf=CalculationFunctions()
-        # all_paths=cf.create_csv(years)
-        # print('Created CSV')
-        # sys.stdout.flush()
-        # cf.genrate_ds(data,all_paths,folder_id,years)
-        # print("Genrated Dataset")
-        # sys.stdout.flush()
-        # path=cf.merge(all_paths,folder_name)
-        # fileId=df.upload_file(path,folder_id)
-        fileId='1xO_CvXn318BwBrHbl2XKum1jWEs_gZJ1'
-        df.move_file(fileId,'1JjhIWlXWT5sAxiYkr7fik6EnM3Trxc2d')
+        cf=CalculationFunctions()
+        all_paths=cf.create_csv(years)
+        print('Created CSV')
+        sys.stdout.flush()
+        cf.genrate_ds(data,all_paths,folder_id,years)
+        print("Genrated Dataset")
+        sys.stdout.flush()
+        path=cf.merge(all_paths,'omkar2-2021-04-22_06-19-06')
+        fileId=df.upload_file(path,folder_id)
+        df.move_file(fileId,folder_id)
         df.get_file('test.csv',fileId)
         forest=pd.read_csv('test.csv')
         print("Merged Dataset")
