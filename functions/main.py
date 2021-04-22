@@ -63,13 +63,13 @@ def download_images(data):
         sys.stdout.flush()
         rp=Report()
         # #TODO
-        report_path=report_path=rp.create_report(predictions[0],forest,data)
+        report_path=report_path=rp.create_report(predictions[0][0],forest,data)
         email=os.getenv('email')
         password=os.getenv('password')
         em=Email(email,password)
         subject=f"Report for {data['Region']} {data['Area']}"
         mail_content=''
-        em.send_email(reciver=data['email'],subject=subject,content=mail_content,files=[report_path])
+        em.send_email(reciver=data['Email'],subject=subject,content=mail_content,files=[report_path])
         
         
         
