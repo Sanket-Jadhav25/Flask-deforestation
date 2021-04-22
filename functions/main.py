@@ -51,25 +51,25 @@ def download_images(data):
         # path=cf.merge(all_paths,folder_name)
         # fileId=df.upload_file(path,folder_id)
         df.get_file('test.csv','116RUOrAIiXQignh2AkLLks616oubq2Qf')
-        x=pd.read_csv('test.csv')
+        forest=pd.read_csv('test.csv')
         print("Merged Dataset")
         sys.stdout.flush()
-        print(x)
+        print(forest)
         sys.stdout.flush()
         #predict
         pred=Predict(os.path.abspath(os.path.join(os.getcwd(),os.getenv('model_path'))))
-        predictions=pred.predict(x)
+        predictions=pred.predict(forest)
         print(predictions)
         sys.stdout.flush()
         rp=Report()
         # #TODO
-        rp.create_report(predictions,x,path=f'reports/{folder_name}.pdf')
+        report_path=report_path=rp.create_report(predictions,forest,data)
         email=os.getenv('email')
         password=os.getenv('password')
         em=Email(email,password)
         subject=f"Report for {data['Region']} {data['Area']}"
         mail_content=''
-        em.send_email(reciver=data['email'],subject=subject,content=mail_content,files=[f'reports/{folder_name}.pdf'])
+        em.send_email(reciver=data['email'],subject=subject,content=mail_content,files=[report_path])
         
         
         
