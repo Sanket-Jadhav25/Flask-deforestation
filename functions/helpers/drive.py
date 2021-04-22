@@ -126,5 +126,4 @@ class DriveFunctions():
     file = self.service.files().create(body=file_metadata,
                                         media_body=media,
                                         fields='id').execute()
-    self.move_file(file,folder_id)
     return file
