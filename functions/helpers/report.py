@@ -13,7 +13,7 @@ class Report():
         pass
     
     def create_report(self,predictions,forest,data,years):
-        
+        forest=forest.iloc[0]
         width = 210
         height = 297
 
