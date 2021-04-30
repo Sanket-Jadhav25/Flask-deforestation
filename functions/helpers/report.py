@@ -42,15 +42,15 @@ class Report():
 
         x = 35
         y = 153
-        pdf.text(x, y, 'Predicted')
-        pdf.text(x, y + 15, 'percetage')
-        pdf.text(x, y + 30, 'of forest')
+        pdf.text(x, y, 'Current')
+        pdf.text(x, y + 15, 'area of')
+        pdf.text(x, y + 30, 'the forest')
 
 
         x = 130
         y = 230
         pdf.text(x, y, 'Predicted')
-        pdf.text(x, y + 15, 'Area of')
+        pdf.text(x, y + 15, 'area of')
         pdf.text(x, y + 30, 'forest')
 
         # -------------
@@ -59,11 +59,14 @@ class Report():
         y = 153
         # pdf.text(x, y, 'Predicted')
         pdf.set_font('Arial', 'B', 45)
-        pdf.text(x-1, y + 18, '%.2f'%(predicted_area/total_area * 100) + "%")
+        pdf.text(x, y + 14, str(round(forest['forest_year_10'],2)))
+        pdf.set_font('Arial', 'B', 30)
+        pdf.text(x+6, y + 27, 'Sq. KM')
         # pdf.text(x, y + 30, 'of forest')
 
         x = 35
         y = 230
+        pdf.set_font('Arial', 'B', 45)
         pdf.text(x-2, y+12, str(round(predicted_area,2)))
         pdf.set_font('Arial', 'B', 30)
         # pdf.text(x, y + 15, 'percetage')
@@ -86,10 +89,11 @@ class Report():
         plt.savefig("figure1.png")
         pdf.image("figure1.png",10,77, width-10,((width-10)/6)*3.7)
         pdf.set_font('Arial', 'B', 18)
-        last_year_area_forest = forest['forest_year_10']                                                 #current last year foreset data
-        last_year_area_crop = forest['crops_year_10']                          #current last year crops data
+        last_year_area_forest = forest['forest_year_10']                       #current last year foreset data
+        # last_year_area_crop = forest['crops_year_10']                          #current last year crops data
         pdf.text(21, 247, '%.1f'%(last_year_area_forest/total_area * 100) + "%")
-        pdf.text(115, 247, '%.1f'%(last_year_area_crop/total_area * 100) + "%")
+        # pdf.text(115, 247, '%.1f'%(last_year_area_crop/total_area * 100) + "%")
+        pdf.text(115, 247, '%.1f'%(predicted_area/total_area * 100) + "%")
         path=os.path.abspath(os.path.join(os.getcwd(),f"reports/{name}.pdf"))
         pdf.output(path, 'F')
         return path
