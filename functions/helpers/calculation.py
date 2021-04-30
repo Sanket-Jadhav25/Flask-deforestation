@@ -347,7 +347,7 @@ class CalculationFunctions():
         year_loop=tqdm(years)
         for year in year_loop:
             
-            if year <=2013:
+            if year <2013:
                 #landsat 7
                 isl8=False
                 # define limits for calculations

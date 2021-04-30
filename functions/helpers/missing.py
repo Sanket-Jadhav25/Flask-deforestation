@@ -106,7 +106,7 @@ class FillMissing():
       startDate =self.eef.ee.Date.fromYMD(year,1,1)
       endDate =self.eef.ee.Date.fromYMD(year,12,31)
       if landsat:
-        if year <=2013:
+        if year <2013:
           landsatDS="LANDSAT/LE07/C01/T1"
           landsatBands=["B2","B3","B4","B5","B7","B6_VCID_1"]
         else:
