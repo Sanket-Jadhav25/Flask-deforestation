@@ -22,13 +22,6 @@ class EarthEngineFunctions():
     return img
 
   def drive_transfer(self,img,name,cord,band_list,destination_folder):
-  # Specify patch and file dimensions.
-  #   image_export_options = {
-  #     'patchDimensions': [256, 256],
-  #     'maxFileSize': 104857600,
-  #     'compressed': True
-  #   }
-
     # Setup the task.
     image_task = self.ee.batch.Export.image.toDrive(
       image=img,
